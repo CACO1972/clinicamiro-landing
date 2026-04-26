@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MIRO.DX · Segunda opinión odontológica con inteligencia artificial. Análisis predictivo gratis por tiempo limitado. Clínica Miró, Providencia.">
+<meta name="theme-color" content="#090B0B">
+<title>Clínica Miró · MIRO.DX — Segunda Opinión con IA</title>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="MIRO.DX · Segunda opinión odontológica con IA">
+<meta property="og:description" content="Análisis predictivo gratis por tiempo limitado. Con evidencia. No con opinión.">
+<meta property="og:url" content="https://clinicamiro.cl/dx">
+<meta property="og:locale" content="es_CL">
+
+<!-- Fuentes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ════════════════════════════════════════════════════════════
+   GOLDEN BRONZE SKIN — Clínica Miró 2026
+   ════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#FFFFFF;
+  --bg-soft:#F5F5F5;
+  --ink:#090B0B;
+  --ink-2:#1C2121;
+  --muted:#6A6F6F;
+  --line:rgba(9,11,11,.08);
+  --bronze:#D3A436;
+  --bronze-d:#B5891C;
+  --bronze-soft:rgba(211,164,54,.08);
+  --display:'Montserrat',system-ui,sans-serif;
+  --body:'Outfit',system-ui,sans-serif;
+  --r-sm:4px;
+  --r-md:8px;
+  --r-lg:16px;
+  --shadow-sm:0 2px 8px rgba(9,11,11,.04);
+  --shadow-md:0 8px 24px rgba(9,11,11,.06);
+  --shadow-lg:0 24px 60px rgba(9,11,11,.08);
+  --max-w:1200px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  font-weight:400;
+  color:var(--ink-2);
+  background:var(--bg);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* ── tipografía ─────────────────────────────────────────────── */
+h1,h2,h3,.display{
+  font-family:var(--display);
+  font-weight:900;
+  color:var(--ink);
+  line-height:1.05;
+  letter-spacing:-.02em;
+}
+h1{font-size:clamp(2.4rem,6vw,4.8rem)}
+h2{font-size:clamp(1.8rem,4vw,3rem)}
+h3{font-size:clamp(1.2rem,2.5vw,1.6rem)}
+.eyebrow{
+  font-family:var(--body);
+  font-weight:600;
+  font-size:.78rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--bronze-d);
+}
+.lead{font-size:clamp(1.05rem,1.6vw,1.2rem);color:var(--muted);max-width:62ch}
+
+/* ── layout ─────────────────────────────────────────────────── */
+.wrap{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+section{padding:80px 0}
+@media(min-width:768px){section{padding:120px 0}}
+
+/* ── nav ────────────────────────────────────────────────────── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{
+  max-width:var(--max-w);margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:900;font-size:1.05rem;color:var(--ink);letter-spacing:.02em}
+.logo-mark{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;
+}
+.logo-mark svg{width:100%;height:100%}
+.nav-links{display:none;gap:28px;font-size:.92rem;color:var(--ink-2);font-weight:500}
+.nav-links a:hover{color:var(--bronze-d)}
+@media(min-width:768px){.nav-links{display:flex}}
+
+/* ── botones ────────────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 28px;
+  font-family:var(--body);font-weight:600;font-size:.95rem;
+  border-radius:var(--r-sm);border:none;cursor:pointer;
+  transition:transform .15s ease,box-shadow .2s ease,background .2s ease;
+  letter-spacing:.02em;
+}
+.btn-primary{background:var(--bronze);color:#fff}
+.btn-primary:hover{background:var(--bronze-d);transform:translateY(-1px);box-shadow:0 8px 20px rgba(211,164,54,.25)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--ink);background:var(--ink);color:#fff}
+.btn-arrow::after{content:'→';transition:transform .15s ease}
+.btn-arrow:hover::after{transform:translateX(4px)}
+.btn-sm{padding:10px 18px;font-size:.85rem}
+
+/* ── hero ───────────────────────────────────────────────────── */
+.hero{
+  padding:140px 0 80px;
+  background:
+    radial-gradient(1200px 500px at 80% -10%,var(--bronze-soft),transparent 70%),
+    radial-gradient(900px 400px at 0% 100%,rgba(9,11,11,.03),transparent 70%),
+    var(--bg);
+  position:relative;overflow:hidden;
+}
+.hero-grid{display:grid;gap:48px;align-items:center}
+@media(min-width:960px){.hero-grid{grid-template-columns:1.15fr .85fr}}
+.hero h1 span{color:var(--bronze-d)}
+.hero-sub{margin-top:24px;font-size:clamp(1.05rem,1.6vw,1.2rem);color:var(--muted);max-width:54ch}
+.hero-ctas{margin-top:36px;display:flex;flex-wrap:wrap;gap:12px}
+.hero-meta{
+  margin-top:36px;display:flex;flex-wrap:wrap;gap:24px;
+  font-size:.85rem;color:var(--muted);
+}
+.hero-meta b{color:var(--ink);font-weight:700}
+.hero-bar{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--bronze-soft);
+  border:1px solid rgba(211,164,54,.2);
+  padding:8px 14px;border-radius:999px;
+  font-size:.8rem;color:var(--bronze-d);font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:20px;
+}
+.hero-bar .dot{width:6px;height:6px;border-radius:50%;background:var(--bronze);box-shadow:0 0 8px var(--bronze)}
+
+.hero-visual{
+  position:relative;
+  aspect-ratio:1/1;max-width:480px;margin:0 auto;
+}
+.hero-visual-card{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#1C2121 0%,#090B0B 100%);
+  border-radius:var(--r-lg);
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-visual-card::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(400px 300px at 30% 30%,rgba(211,164,54,.15),transparent 70%),
+    radial-gradient(300px 200px at 70% 80%,rgba(211,164,54,.08),transparent 70%);
+}
+.hero-visual-content{position:relative;text-align:center;color:#fff;padding:32px}
+.hero-visual-content .big{font-family:var(--display);font-weight:900;font-size:clamp(2rem,4vw,3rem);line-height:1;letter-spacing:-.02em;margin-bottom:8px}
+.hero-visual-content .small{font-family:'Outfit',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze);opacity:.8}
+.hero-visual-content .pill{display:inline-flex;margin-top:20px;padding:6px 14px;background:rgba(211,164,54,.15);border:1px solid rgba(211,164,54,.3);border-radius:999px;font-size:.75rem;color:var(--bronze);letter-spacing:.1em;text-transform:uppercase}
+
+/* ── secciones ──────────────────────────────────────────────── */
+.sec-hd{margin-bottom:48px;max-width:60ch}
+.sec-hd .eyebrow{display:block;margin-bottom:14px}
+.sec-hd p{margin-top:16px}
+
+.bg-soft{background:var(--bg-soft)}
+.bg-dark{background:var(--ink);color:#fff}
+.bg-dark h1,.bg-dark h2,.bg-dark h3{color:#fff}
+.bg-dark .lead,.bg-dark .muted{color:rgba(255,255,255,.65)}
+
+/* ── grid de beneficios ────────────────────────────────────── */
+.bens{display:grid;gap:24px;grid-template-columns:1fr}
+@media(min-width:640px){.bens{grid-template-columns:1fr 1fr}}
+@media(min-width:960px){.bens{grid-template-columns:1fr 1fr 1fr}}
+.ben{
+  padding:32px 28px;
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:var(--r-md);
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+.ben:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:rgba(211,164,54,.3)}
+.ben-num{font-family:var(--display);font-weight:900;font-size:2.4rem;color:var(--bronze);line-height:1;margin-bottom:14px}
+.ben h3{margin-bottom:8px}
+.ben p{color:var(--muted);font-size:.95rem}
+
+/* ── proceso (3 pasos) ─────────────────────────────────────── */
+.steps{display:grid;gap:28px;grid-template-columns:1fr;counter-reset:s}
+@media(min-width:768px){.steps{grid-template-columns:1fr 1fr 1fr}}
+.step{
+  padding:28px 24px;border-radius:var(--r-md);
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  counter-increment:s;
+}
+.step::before{
+  content:counter(s,decimal-leading-zero);
+  display:block;font-family:var(--display);font-weight:900;font-size:.9rem;
+  color:var(--bronze);letter-spacing:.1em;margin-bottom:14px;
+}
+.step h3{font-size:1.1rem;margin-bottom:8px}
+.step p{color:rgba(255,255,255,.65);font-size:.92rem;line-height:1.6}
+
+/* ── consola widget ─────────────────────────────────────────── */
+.console-section{background:linear-gradient(180deg,var(--bg) 0%,var(--bg-soft) 100%);padding:60px 0 100px;position:relative}
+.console-frame{
+  max-width:1200px;margin:0 auto;
+  background:#0a0d0d;
+  border-radius:var(--r-lg);
+  box-shadow:var(--shadow-lg),0 0 0 1px rgba(211,164,54,.15);
+  overflow:hidden;
+  position:relative;
+}
+.console-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;
+  background:linear-gradient(180deg,#101414,#0a0d0d);
+  border-bottom:1px solid rgba(211,164,54,.15);
+}
+.console-bar-left{display:flex;align-items:center;gap:14px}
+.console-dots{display:flex;gap:6px}
+.console-dots span{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15)}
+.console-dots span:first-child{background:#ff5f56}
+.console-dots span:nth-child(2){background:#ffbd2e}
+.console-dots span:last-child{background:#27c93f}
+.console-title{font-family:'Outfit',monospace;font-size:.8rem;letter-spacing:.15em;color:var(--bronze);font-weight:600;text-transform:uppercase}
+.console-tag{font-family:'Outfit',monospace;font-size:.7rem;letter-spacing:.1em;color:rgba(255,255,255,.4);background:rgba(211,164,54,.1);padding:4px 10px;border-radius:3px;border:1px solid rgba(211,164,54,.2)}
+.console-iframe{
+  width:100%;
+  border:none;display:block;
+  background:#0a0d0d;
+  height:760px;
+  min-height:600px;
+}
+@media(max-width:767px){.console-iframe{height:80vh;min-height:500px}}
+
+.console-fallback{display:none;padding:32px;color:rgba(255,255,255,.7);text-align:center}
+.console-fallback a{color:var(--bronze);font-weight:600}
+
+.console-helpers{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:14px;
+  margin-top:28px;font-size:.88rem;color:var(--muted);
+}
+.console-helpers a{color:var(--bronze-d);font-weight:600;border-bottom:1px dotted var(--bronze-d)}
+
+/* ── FAQ ────────────────────────────────────────────────────── */
+.faq{max-width:780px;margin:0 auto}
+.faq-item{
+  border-bottom:1px solid var(--line);
+  padding:20px 0;
+  cursor:pointer;
+}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--ink);
+}
+.faq-q::after{content:'+';font-weight:300;color:var(--bronze-d);font-size:1.6rem;line-height:1;transition:transform .2s ease}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .3s ease;
+  color:var(--muted);font-size:.95rem;
+}
+.faq-item.open .faq-a{max-height:300px;padding-top:14px}
+
+/* ── footer ─────────────────────────────────────────────────── */
+.foot{
+  background:var(--ink);color:rgba(255,255,255,.6);
+  padding:60px 0 30px;font-size:.88rem;
+}
+.foot h4{color:#fff;font-family:var(--display);font-weight:800;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.foot a{color:rgba(255,255,255,.6)}
+.foot a:hover{color:var(--bronze)}
+.foot-grid{display:grid;gap:32px;grid-template-columns:1fr}
+@media(min-width:640px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
+.foot-bot{
+  margin-top:48px;padding-top:24px;
+  border-top:1px solid rgba(255,255,255,.08);
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;
+  font-size:.78rem;color:rgba(255,255,255,.4);
+}
+
+/* ── motion ─────────────────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.fade-up{animation:fadeUp .6s ease both}
+.fade-up-1{animation-delay:.1s}
+.fade-up-2{animation-delay:.2s}
+.fade-up-3{animation-delay:.3s}
+
+/* ── floating WhatsApp ─────────────────────────────────────── */
+.fab-wsp{
+  position:fixed;bottom:20px;right:20px;z-index:40;
+  width:54px;height:54px;border-radius:50%;
+  background:#25D366;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(37,211,102,.35);
+  transition:transform .15s ease;
+}
+.fab-wsp:hover{transform:scale(1.05)}
+.fab-wsp svg{width:28px;height:28px;fill:#fff}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     NAV
+     ════════════════════════════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav-in">
+    <a href="/" class="logo">
+      <span class="logo-mark">
+        <!-- Logo Clínica Miró: M angular en bronce con separador vertical -->
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M8 52 L8 12 L20 12 L32 32 L44 12 L56 12 L56 52 L48 52 L48 22 L36 40 L28 40 L16 22 L16 52 Z" fill="#D3A436"/>
+          <line x1="62" y1="14" x2="62" y2="50" stroke="#D3A436" stroke-width="1.5"/>
+        </svg>
+      </span>
+      <span>CLÍNICA MIRÓ</span>
+    </a>
+    <div class="nav-links">
+      <a href="#proceso">Proceso</a>
+      <a href="#consola">La consola</a>
+      <a href="#faq">Preguntas</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <a href="#consola" class="btn btn-primary btn-sm btn-arrow">Probar gratis</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="fade-up">
+      <div class="hero-bar"><span class="dot"></span>Gratis · 30 días · Programa piloto</div>
+      <h1>Una segunda opinión <span>sin intereses,</span> en menos de 5 minutos.</h1>
+      <p class="hero-sub">MIRO.DX cruza tu caso con miles de diagnósticos reales y te entrega un análisis predictivo. Con evidencia. No con opinión.</p>
+      <div class="hero-ctas">
+        <a href="#consola" class="btn btn-primary btn-arrow">Quiero certeza</a>
+        <a href="#proceso" class="btn btn-ghost">Cómo funciona</a>
+      </div>
+      <div class="hero-meta">
+        <span><b>+11.000</b> implantes documentados</span>
+        <span><b>30+</b> años de experiencia clínica</span>
+        <span><b>4P</b> · Modelo predictivo</span>
+      </div>
+    </div>
+    <div class="hero-visual fade-up fade-up-2" aria-hidden="true">
+      <div class="hero-visual-card">
+        <div class="hero-visual-content">
+          <div class="small">Modelo 4P</div>
+          <div class="big">PREDICTIVA<br>PERSONALIZADA<br>PREVENTIVA<br>PARTICIPATIVA</div>
+          <div class="pill">Odontología del futuro</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     BENEFICIOS
+     ════════════════════════════════════════════════════════════ -->
+<section id="por-que">
+  <div class="wrap">
+    <div class="sec-hd fade-up">
+      <span class="eyebrow">Por qué esto es distinto</span>
+      <h2>No es una evaluación más.<br>Es la verdad cruzada con datos.</h2>
+      <p class="lead">Diagnósticos contradictorios entre clínicas son la norma, no la excepción. Te explicamos por qué — y te damos un punto de referencia objetivo.</p>
+    </div>
+    <div class="bens">
+      <article class="ben fade-up">
+        <div class="ben-num">01</div>
+        <h3>Sin conflicto de interés</h3>
+        <p>El análisis es predictivo y trazable. No te lo da quien va a tratarte.</p>
+      </article>
+      <article class="ben fade-up fade-up-1">
+        <div class="ben-num">02</div>
+        <h3>Cruzado con miles de casos</h3>
+        <p>11.000+ implantes documentados y 4.126 casos clínicos comparados en tiempo real.</p>
+      </article>
+      <article class="ben fade-up fade-up-2">
+        <div class="ben-num">03</div>
+        <h3>En 5 minutos, no en 5 visitas</h3>
+        <p>Identificación, anamnesis, captura, análisis IA y resultados. Todo en una sola sesión.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PROCESO
+     ════════════════════════════════════════════════════════════ -->
+<section id="proceso" class="bg-dark">
+  <div class="wrap">
+    <div class="sec-hd fade-up">
+      <span class="eyebrow" style="color:var(--bronze)">Cómo funciona</span>
+      <h2>Tres pasos. Sin compromiso.</h2>
+      <p class="lead">El sistema es operado por Rodrigo, asistente clínico por voz. Tú avanzas a tu ritmo.</p>
+    </div>
+    <div class="steps">
+      <div class="step fade-up">
+        <h3>Identificación</h3>
+        <p>Nombre, RUT, email y WhatsApp. Es la única forma de enviarte tu informe y poder contactarte si encontramos algo importante.</p>
+      </div>
+      <div class="step fade-up fade-up-1">
+        <h3>Análisis con IA</h3>
+        <p>Anamnesis breve, captura dental con tu cámara y procesamiento por seis modelos especializados (SCANDENT, IMPLANTX, SIMETRÍA, ZEROCARIES, ARMONÍA, CLARITY).</p>
+      </div>
+      <div class="step fade-up fade-up-2">
+        <h3>Resultados y siguiente paso</h3>
+        <p>Score de riesgo, hallazgos detectados y la opción de agendar con el especialista que mejor matchea tu caso. O simplemente conservar el informe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CONSOLA WIDGET — el corazón
+     ════════════════════════════════════════════════════════════ -->
+<section id="consola" class="console-section">
+  <div class="wrap">
+    <div class="sec-hd fade-up" style="text-align:center;margin-left:auto;margin-right:auto">
+      <span class="eyebrow">Tu sesión empieza aquí</span>
+      <h2>MIRO.DX · Consola clínica</h2>
+      <p class="lead" style="margin-left:auto;margin-right:auto">Presiona <b>play</b> dentro del panel y sigue las instrucciones de Rodrigo.</p>
+    </div>
+
+    <div class="console-frame fade-up">
+      <div class="console-bar">
+        <div class="console-bar-left">
+          <div class="console-dots"><span></span><span></span><span></span></div>
+          <div class="console-title">MIRO.DX</div>
+        </div>
+        <div class="console-tag">GRATIS · PILOTO 30 DÍAS</div>
+      </div>
+      <iframe
+        id="miroDxFrame"
+        class="console-iframe"
+        src="https://miro-dx-console.vercel.app/"
+        title="Consola MIRO.DX — Análisis dental con IA"
+        allow="camera; microphone; autoplay; encrypted-media"
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <div class="console-fallback" id="consoleFallback">
+        Si la consola no carga, <a href="https://miro-dx-console.vercel.app/" target="_blank">ábrela en una pestaña nueva</a>.
+      </div>
+    </div>
+
+    <div class="console-helpers">
+      <span>¿Problemas con la cámara?</span>
+      <a href="https://wa.me/56974157966?text=Hola%2C%20tengo%20un%20problema%20con%20la%20consola%20MIRO.DX" target="_blank">Escríbenos por WhatsApp</a>
+      <span>·</span>
+      <a href="https://ff.healthatom.io/41knMr" target="_blank">O agenda directamente en clínica</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FAQ
+     ════════════════════════════════════════════════════════════ -->
+<section id="faq" class="bg-soft">
+  <div class="wrap">
+    <div class="sec-hd fade-up" style="text-align:center;margin-left:auto;margin-right:auto">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2>Lo que probablemente quieres saber.</h2>
+    </div>
+    <div class="faq">
+      <div class="faq-item"><div class="faq-q">¿De verdad es gratis?</div><div class="faq-a">Sí. Estamos en programa piloto 30 días para validar la consola con pacientes reales. No te pedimos tarjeta.</div></div>
+      <div class="faq-item"><div class="faq-q">¿Qué hacen con mis datos?</div><div class="faq-a">Cumplimos la Ley 21.719. Tus datos se guardan cifrados en infraestructura clínica certificada y solo se usan para procesar tu análisis y contactarte si tú lo autorizas.</div></div>
+      <div class="faq-item"><div class="faq-q">¿Reemplaza a un dentista?</div><div class="faq-a">No. MIRO.DX te entrega una segunda opinión objetiva basada en evidencia. Cualquier diagnóstico definitivo requiere examen clínico presencial.</div></div>
+      <div class="faq-item"><div class="faq-q">¿Tengo que ir a la clínica?</div><div class="faq-a">No es obligatorio. Si tras el análisis quieres profundizar, te ofrecemos agenda directa con el especialista que mejor matchea tu caso. Si no, el informe queda contigo.</div></div>
+      <div class="faq-item"><div class="faq-q">¿Qué necesito para usar la consola?</div><div class="faq-a">Un teléfono o computador con cámara, audio activado y unos 5 minutos sin interrupciones. Recomendamos una habitación bien iluminada.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CONTACTO / CTA FINAL
+     ════════════════════════════════════════════════════════════ -->
+<section id="contacto">
+  <div class="wrap" style="text-align:center;max-width:760px;margin-left:auto;margin-right:auto">
+    <span class="eyebrow">Clínica Miró · Providencia</span>
+    <h2 style="margin-top:14px">¿Prefieres venir directamente?</h2>
+    <p class="lead" style="margin:16px auto 32px">Av. Nueva Providencia 2214, Of. 189 · Providencia, Santiago. Dirección clínica: Dr. Carlos Montoya. 30+ años de experiencia.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+      <a href="https://ff.healthatom.io/41knMr" target="_blank" class="btn btn-primary btn-arrow">Agendar en clínica</a>
+      <a href="https://wa.me/56974157966" target="_blank" class="btn btn-ghost">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════════════════════ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+          <span style="display:inline-flex;width:32px;height:32px">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M8 52 L8 12 L20 12 L32 32 L44 12 L56 12 L56 52 L48 52 L48 22 L36 40 L28 40 L16 22 L16 52 Z" fill="#D3A436"/></svg>
+          </span>
+          <strong style="color:#fff;font-family:var(--display);letter-spacing:.05em">CLÍNICA MIRÓ</strong>
+        </div>
+        <p style="font-size:.85rem;line-height:1.6">Odontología predictiva. Modelo 4P.<br>Av. Nueva Providencia 2214, Of. 189<br>Providencia, Santiago.</p>
+      </div>
+      <div>
+        <h4>MIRO.DX</h4>
+        <a href="#consola">Consola</a><br>
+        <a href="#proceso">Proceso</a><br>
+        <a href="#faq">Preguntas</a>
+      </div>
+      <div>
+        <h4>Clínica</h4>
+        <a href="https://ff.healthatom.io/41knMr" target="_blank">Agendar</a><br>
+        <a href="#contacto">Ubicación</a><br>
+        <a href="https://wa.me/56974157966" target="_blank">WhatsApp</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="/privacidad">Privacidad</a><br>
+        <a href="/terminos">Términos</a><br>
+        <span style="color:rgba(255,255,255,.4)">Ley 21.719</span>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 Clínica Miró. Todos los derechos reservados.</span>
+      <span>Director Clínico · Dr. Carlos A. Montoya B.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════
+     FAB WhatsApp
+     ════════════════════════════════════════════════════════════ -->
+<a href="https://wa.me/56974157966?text=Hola%2C%20vengo%20del%20landing%20MIRO.DX" target="_blank" class="fab-wsp" aria-label="WhatsApp Clínica Miró" data-cta="fab_whatsapp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.5.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+</a>
+
+<!-- ════════════════════════════════════════════════════════════
+     SCRIPT
+     ════════════════════════════════════════════════════════════ -->
+<script>
+// ── FAQ accordion ─────────────────────────────────────────────
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.addEventListener('click',()=>item.classList.toggle('open'));
+});
+
+// ── Capturar UTMs y propagar al iframe de la consola ──────────
+const params=new URLSearchParams(window.location.search);
+const utm={
+  source: params.get('utm_source')||'direct',
+  medium: params.get('utm_medium')||'',
+  campaign: params.get('utm_campaign')||'',
+  content: params.get('utm_content')||''
+};
+
+// Persistir UTMs en sessionStorage para no perderlos al cambiar de hash
+try{ sessionStorage.setItem('miro_utm', JSON.stringify(utm)); }catch(e){}
+
+const frame=document.getElementById('miroDxFrame');
+function pushUTM(){
+  if(!frame||!frame.contentWindow)return;
+  try{
+    frame.contentWindow.postMessage({type:'miro_utm', utm}, 'https://miro-dx-console.vercel.app');
+  }catch(e){}
+}
+if(frame){
+  frame.addEventListener('load',()=>{
+    pushUTM();
+    // Reintento por si la consola tarda en montar el listener
+    setTimeout(pushUTM,500);
+    setTimeout(pushUTM,1500);
+  });
+}
+
+// ── Smooth scroll a la consola desde CTAs internos ───────────
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const h=a.getAttribute('href');
+    if(h.length>1){
+      const t=document.querySelector(h);
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+    }
+  });
+});
+
+// ── Tracking básico de scroll-to-console ────────────────────
+let consoleSeen=false;
+const consoleEl=document.getElementById('consola');
+if('IntersectionObserver' in window && consoleEl){
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting && !consoleSeen){
+        consoleSeen=true;
+        // Track en Supabase que el visitante alcanzó la consola
+        try{
+          fetch('https://jipldlklzobiytkvxokf.supabase.co/functions/v1/miro-dx-track',{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({
+              event:'visit',
+              session_id:'LAND-'+Math.random().toString(36).slice(2,8).toUpperCase(),
+              utm_source:utm.source,utm_medium:utm.medium,
+              utm_campaign:utm.campaign,utm_content:utm.content,
+              referrer:document.referrer.slice(0,200),
+              user_agent:navigator.userAgent.slice(0,200)
+            })
+          });
+        }catch(e){}
+      }
+    });
+  },{threshold:0.3});
+  io.observe(consoleEl);
+}
+</script>
+</body>
+</html>
