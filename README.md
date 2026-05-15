@@ -85,3 +85,5 @@ Devuelve por día y fuente UTM:
 
 - El landing y la consola viven en proyectos Vercel separados pero se ven como una sola experiencia gracias al iframe.
 - Si en el futuro quieres subir la consola al subdominio `consola.clinicamiro.cl`, basta con configurar el custom domain en el proyecto Vercel `miro-dx-console` y cambiar la URL del iframe en este landing.
+
+<!-- redeploy trigger: 2026-05-15T21:15:33Z -->
