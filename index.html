@@ -205,14 +205,83 @@ section{padding:80px 0}
   font-family:var(--body);font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;
   color:#D9D6CE;
   font-weight:600;
-  display:flex;flex-direction:column;align-items:center;gap:10px;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
   z-index:2;
+  cursor:pointer;
+  transition:opacity .3s ease, transform .3s ease;
 }
-.hero-scroll::after{
-  content:'';width:1px;height:32px;background:linear-gradient(180deg,var(--bronze),transparent);
-  animation:scrollPulse 2s ease-in-out infinite;
+.hero-scroll:hover{transform:translateX(-50%) translateY(-3px)}
+.hero-scroll.hidden{opacity:0;pointer-events:none}
+
+/* Mouse outline con rueda animada */
+.mouse-icon{
+  width:26px;height:42px;
+  border:2px solid var(--bronze);
+  border-radius:14px;
+  position:relative;
+  background:rgba(211,164,54,.05);
+  box-shadow:0 0 20px rgba(211,164,54,.15), inset 0 0 12px rgba(211,164,54,.08);
 }
-@keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
+.mouse-icon::before{
+  content:'';
+  position:absolute;
+  top:7px;left:50%;
+  width:3px;height:8px;
+  background:var(--bronze);
+  border-radius:2px;
+  transform:translateX(-50%);
+  animation:mouseWheel 1.8s cubic-bezier(.4,0,.2,1) infinite;
+  box-shadow:0 0 8px var(--bronze);
+}
+
+/* Chevrones que bajan en cascada */
+.chevrons{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  height:18px;
+}
+.chevrons span{
+  width:14px;height:6px;
+  border-right:2px solid var(--bronze);
+  border-bottom:2px solid var(--bronze);
+  transform:rotate(45deg);
+  animation:chevronFade 1.8s cubic-bezier(.4,0,.2,1) infinite;
+  opacity:0;
+}
+.chevrons span:nth-child(1){animation-delay:0s}
+.chevrons span:nth-child(2){animation-delay:.2s}
+.chevrons span:nth-child(3){animation-delay:.4s}
+
+@keyframes mouseWheel{
+  0%{transform:translateX(-50%) translateY(0);opacity:1}
+  60%{transform:translateX(-50%) translateY(14px);opacity:0}
+  100%{transform:translateX(-50%) translateY(14px);opacity:0}
+}
+@keyframes chevronFade{
+  0%{opacity:0;transform:rotate(45deg) translate(-4px,-4px)}
+  50%{opacity:1}
+  100%{opacity:0;transform:rotate(45deg) translate(4px,4px)}
+}
+
+/* Reveal scroll-driven para secciones (Intersection Observer) */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1);
+  will-change:opacity, transform;
+}
+.reveal.in{
+  opacity:1;
+  transform:translateY(0);
+}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+
+/* Hero grid con parallax */
+.hero::before{
+  will-change:transform;
+}
 
 /* ════════════════════════════════════════════════════════════
    PROPUESTA — la solución detrás del gancho
@@ -411,7 +480,11 @@ section{padding:80px 0}
     </div>
   </div>
 
-  <div class="hero-scroll">Baja para empezar</div>
+  <a href="#como-funciona" class="hero-scroll" id="heroScroll">
+    <span>Baja para empezar</span>
+    <div class="mouse-icon"></div>
+    <div class="chevrons"><span></span><span></span><span></span></div>
+  </a>
 </header>
 
 <!-- ════════════════════════════════════════════════════════════
@@ -419,12 +492,12 @@ section{padding:80px 0}
      ════════════════════════════════════════════════════════════ -->
 <section class="prop" id="como-funciona">
   <div class="wrap">
-    <span class="eyebrow prop-eyebrow">Por qué pasa esto</span>
-    <h2>Cada dentista te ve con sus ojos. Y con su agenda.</h2>
-    <p>
+    <span class="eyebrow prop-eyebrow reveal">Por qué pasa esto</span>
+    <h2 class="reveal reveal-delay-1">Cada dentista te ve con sus ojos. Y con su agenda.</h2>
+    <p class="reveal reveal-delay-2">
       No es mala fe. Es estructural. Cada profesional interpreta según su especialidad, su experiencia y los tratamientos que ofrece. MIRO.DX cambia el ángulo: cruza tu caso con miles de diagnósticos reales y te entrega un análisis predictivo, sin que nadie esté tratando de venderte nada.
     </p>
-    <div class="prop-badge">
+    <div class="prop-badge reveal reveal-delay-3">
       <span class="pulse"></span>
       <span><b>GRATIS</b> · Programa piloto · 30 días</span>
     </div>
@@ -436,13 +509,13 @@ section{padding:80px 0}
      ════════════════════════════════════════════════════════════ -->
 <section id="consola" class="console-section">
   <div class="wrap">
-    <div class="console-hd fade-up">
+    <div class="console-hd reveal">
       <span class="eyebrow">Tu sesión empieza aquí</span>
       <h2 style="margin-top:14px">MIRO.DX · Consola clínica</h2>
       <p>Dale <b>play</b> dentro del panel y sigue las instrucciones de Rodrigo, tu asistente clínico por voz.</p>
     </div>
 
-    <div class="console-frame fade-up">
+    <div class="console-frame reveal reveal-delay-2">
       <div class="console-bar">
         <div class="console-bar-left">
           <div class="console-dots"><span></span><span></span><span></span></div>
@@ -474,11 +547,11 @@ section{padding:80px 0}
      ════════════════════════════════════════════════════════════ -->
 <section id="faq" class="faq-section">
   <div class="wrap">
-    <div class="sec-hd sec-hd-center fade-up">
+    <div class="sec-hd sec-hd-center reveal">
       <span class="eyebrow">Preguntas frecuentes</span>
       <h2 style="margin-top:14px">Lo que probablemente quieres saber.</h2>
     </div>
-    <div class="faq">
+    <div class="faq reveal reveal-delay-2">
       <div class="faq-item"><div class="faq-q">¿De verdad es gratis?</div><div class="faq-a">Sí. Estamos en programa piloto 30 días para validar la consola con pacientes reales. No te pedimos tarjeta de crédito.</div></div>
       <div class="faq-item"><div class="faq-q">¿Qué hacen con mis datos?</div><div class="faq-a">Cumplimos la Ley 21.719. Tus datos se guardan cifrados en infraestructura clínica certificada y solo se usan para procesar tu análisis y contactarte si tú lo autorizas.</div></div>
       <div class="faq-item"><div class="faq-q">¿Reemplaza a un dentista?</div><div class="faq-a">No. MIRO.DX te entrega una segunda opinión objetiva basada en evidencia. Cualquier diagnóstico definitivo requiere examen clínico presencial.</div></div>
@@ -493,10 +566,10 @@ section{padding:80px 0}
      ════════════════════════════════════════════════════════════ -->
 <section id="contacto" style="background:var(--bg-soft);text-align:center">
   <div class="wrap" style="max-width:760px">
-    <span class="eyebrow">Clínica Miró · Providencia</span>
-    <h2 style="margin-top:14px">¿Prefieres venir directamente?</h2>
-    <p class="lead" style="margin:16px auto 32px">Av. Nueva Providencia 2214, Of. 189 · Providencia, Santiago. Dirección clínica: Dr. Carlos Montoya. 30+ años de experiencia.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+    <span class="eyebrow reveal">Clínica Miró · Providencia</span>
+    <h2 class="reveal reveal-delay-1" style="margin-top:14px">¿Prefieres venir directamente?</h2>
+    <p class="lead reveal reveal-delay-2" style="margin:16px auto 32px">Av. Nueva Providencia 2214, Of. 189 · Providencia, Santiago. Dirección clínica: Dr. Carlos Montoya. 30+ años de experiencia.</p>
+    <div class="reveal reveal-delay-3" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
       <a href="https://ff.healthatom.io/41knMr" target="_blank" class="btn btn-primary btn-arrow">Agendar en clínica</a>
       <a href="https://wa.me/56974157966" target="_blank" class="btn btn-ghost">WhatsApp</a>
     </div>
@@ -557,15 +630,38 @@ document.querySelectorAll('.faq-item').forEach(item=>{
   item.addEventListener('click',()=>item.classList.toggle('open'));
 });
 
-// ── Nav fondo blanco al scrollear ─────────────────────────────
+// ── Nav fondo blanco + scroll indicator auto-hide + parallax sutil ───
 const nav=document.getElementById('nav');
-let lastScroll=0;
-window.addEventListener('scroll',()=>{
-  const y=window.scrollY;
-  if(y>80) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-  lastScroll=y;
-});
+const heroScroll=document.getElementById('heroScroll');
+const heroBg=document.querySelector('.hero');
+
+let ticking=false;
+function onScroll(){
+  if(ticking)return;
+  requestAnimationFrame(()=>{
+    const y=window.scrollY;
+    // Nav fondo
+    if(y>80) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+    // Auto-hide del scroll indicator después de 60px
+    if(heroScroll){
+      if(y>60) heroScroll.classList.add('hidden');
+      else heroScroll.classList.remove('hidden');
+    }
+    // Parallax sutil sobre el grid del hero
+    if(heroBg && y<800){
+      heroBg.style.setProperty('--py', (y*0.35)+'px');
+    }
+    ticking=false;
+  });
+  ticking=true;
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+
+// Aplicar el parallax via CSS custom property
+const style=document.createElement('style');
+style.textContent='.hero::before{transform:translateY(var(--py,0px))}';
+document.head.appendChild(style);
 
 // ── Smooth scroll a anclas ───────────────────────────────────
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
@@ -577,6 +673,26 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     }
   });
 });
+
+// ── Reveal scroll-driven (Intersection Observer) ──────────────
+const prefersReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(prefersReduced){
+  // Si el usuario prefiere menos movimiento, mostramos todo de una
+  document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+} else if('IntersectionObserver' in window){
+  const revealObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        revealObserver.unobserve(en.target);
+      }
+    });
+  },{threshold:0.15, rootMargin:'0px 0px -80px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+} else {
+  // Fallback para navegadores antiguos
+  document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+}
 
 // ── Propagar UTMs al iframe de la consola (sin tracking server-side todavía) ──
 const params=new URLSearchParams(window.location.search);
