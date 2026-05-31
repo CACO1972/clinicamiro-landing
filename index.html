@@ -60,22 +60,22 @@ h1,h2,h3,.display{
   font-family:var(--display);
   font-weight:900;
   color:var(--ink);
-  line-height:1.02;
-  letter-spacing:-.025em;
+  line-height:1.0;
+  letter-spacing:-.03em;
 }
-h1{font-size:clamp(2.6rem,7.5vw,6rem)}
-h2{font-size:clamp(1.8rem,4vw,3rem)}
-h3{font-size:clamp(1.2rem,2.5vw,1.6rem)}
+h1{font-size:clamp(3.2rem,9.5vw,7.5rem)}
+h2{font-size:clamp(2rem,4.5vw,3.4rem)}
+h3{font-size:clamp(1.3rem,2.6vw,1.75rem)}
 
 .eyebrow{
   font-family:var(--body);
-  font-weight:600;
-  font-size:.78rem;
-  letter-spacing:.18em;
+  font-weight:700;
+  font-size:.88rem;
+  letter-spacing:.2em;
   text-transform:uppercase;
   color:var(--bronze-d);
 }
-.lead{font-size:clamp(1.05rem,1.6vw,1.2rem);color:var(--muted);max-width:62ch}
+.lead{font-size:clamp(1.15rem,1.8vw,1.35rem);color:var(--muted);max-width:62ch}
 
 .wrap{max-width:var(--max-w);margin:0 auto;padding:0 24px}
 section{padding:80px 0}
@@ -98,7 +98,7 @@ section{padding:80px 0}
 .nav.scrolled .logo{color:var(--ink)}
 .logo-mark{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px}
 .logo-mark svg{width:100%;height:100%}
-.nav-links{display:none;gap:28px;font-size:.92rem;color:rgba(255,255,255,.85);font-weight:500;transition:color .2s}
+.nav-links{display:none;gap:30px;font-size:1rem;color:#E8E6E0;font-weight:500;transition:color .2s}
 .nav.scrolled .nav-links{color:var(--ink-2)}
 .nav-links a:hover{color:var(--bronze)}
 @media(min-width:768px){.nav-links{display:flex}}
@@ -151,58 +151,61 @@ section{padding:80px 0}
 .hero-in{position:relative;z-index:2;width:100%}
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:10px;
-  font-family:var(--body);font-weight:600;
-  font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
+  font-family:var(--body);font-weight:700;
+  font-size:.88rem;letter-spacing:.22em;text-transform:uppercase;
   color:var(--bronze);
-  margin-bottom:32px;
-  padding:8px 16px;
-  border:1px solid rgba(211,164,54,.3);
+  margin-bottom:36px;
+  padding:10px 20px;
+  border:1px solid rgba(211,164,54,.4);
   border-radius:999px;
-  background:rgba(211,164,54,.05);
+  background:rgba(211,164,54,.08);
 }
-.hero-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--bronze);box-shadow:0 0 12px var(--bronze);animation:pulse 2s ease-in-out infinite}
+.hero-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--bronze);box-shadow:0 0 14px var(--bronze);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-.hero h1{color:#fff;margin-bottom:24px}
+.hero h1{color:#fff;margin-bottom:28px}
 .hero h1 .l1,
 .hero h1 .l2,
 .hero h1 .l3{display:block}
 .hero h1 .accent{color:var(--bronze)}
 .hero h1 .l3{
-  font-size:.6em;
-  color:rgba(255,255,255,.55);
-  font-weight:700;
+  font-size:.7em;
+  color:#E8E6E0;
+  font-weight:800;
   letter-spacing:-.015em;
-  margin-top:24px;
-  line-height:1.25;
-  max-width:24ch;
+  margin-top:32px;
+  line-height:1.2;
+  max-width:26ch;
 }
-.hero h1 .l3 b{color:#fff;font-weight:800}
+.hero h1 .l3 b{color:#fff;font-weight:900}
 
 .hero-sub{
-  margin-top:36px;
-  font-size:clamp(1.1rem,1.7vw,1.25rem);
-  color:rgba(255,255,255,.75);
-  max-width:54ch;
-  line-height:1.65;
+  margin-top:40px;
+  font-size:clamp(1.25rem,2vw,1.5rem);
+  color:#D9D6CE;
+  max-width:58ch;
+  line-height:1.55;
+  font-weight:400;
 }
 
-.hero-ctas{margin-top:42px;display:flex;flex-wrap:wrap;gap:14px}
+.hero-ctas{margin-top:48px;display:flex;flex-wrap:wrap;gap:14px}
 
 .hero-meta{
-  margin-top:48px;
-  display:flex;flex-wrap:wrap;gap:32px;
-  font-size:.85rem;color:rgba(255,255,255,.5);
+  margin-top:56px;
+  display:flex;flex-wrap:wrap;gap:36px;
+  font-size:.95rem;color:#D9D6CE;
+  font-weight:500;
 }
-.hero-meta b{color:#fff;font-weight:700;display:block;font-size:1.4rem;font-family:var(--display);margin-bottom:2px}
-.hero-meta .item{padding-right:32px;border-right:1px solid rgba(255,255,255,.08)}
+.hero-meta b{color:#fff;font-weight:900;display:block;font-size:1.85rem;font-family:var(--display);margin-bottom:4px;letter-spacing:-.02em}
+.hero-meta .item{padding-right:36px;border-right:1px solid rgba(255,255,255,.12)}
 .hero-meta .item:last-child{border:none;padding-right:0}
 
 .hero-scroll{
   position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
-  font-family:var(--body);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;
-  color:rgba(255,255,255,.4);
-  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-family:var(--body);font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;
+  color:#D9D6CE;
+  font-weight:600;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
   z-index:2;
 }
 .hero-scroll::after{
@@ -222,20 +225,20 @@ section{padding:80px 0}
 .prop .wrap{max-width:880px}
 .prop-eyebrow{color:var(--bronze-d);margin-bottom:18px;display:inline-block}
 .prop h2{margin-bottom:24px}
-.prop p{font-size:clamp(1.1rem,1.7vw,1.3rem);color:var(--ink-2);line-height:1.6;max-width:60ch;margin:0 auto}
+.prop p{font-size:clamp(1.2rem,1.9vw,1.45rem);color:var(--ink-2);line-height:1.55;max-width:58ch;margin:0 auto;font-weight:400}
 .prop-badge{
-  display:inline-flex;align-items:center;gap:12px;
-  margin-top:40px;
-  padding:14px 28px;
+  display:inline-flex;align-items:center;gap:14px;
+  margin-top:44px;
+  padding:16px 32px;
   background:#fff;
   border:1px solid var(--line);
   border-radius:999px;
-  font-family:var(--body);font-weight:600;font-size:.9rem;
+  font-family:var(--body);font-weight:600;font-size:1rem;
   color:var(--ink);
   box-shadow:var(--shadow-md);
 }
-.prop-badge .pulse{width:8px;height:8px;border-radius:50%;background:var(--bronze);box-shadow:0 0 12px var(--bronze);animation:pulse 2s ease-in-out infinite}
-.prop-badge b{color:var(--bronze-d);letter-spacing:.05em}
+.prop-badge .pulse{width:9px;height:9px;border-radius:50%;background:var(--bronze);box-shadow:0 0 14px var(--bronze);animation:pulse 2s ease-in-out infinite}
+.prop-badge b{color:var(--bronze-d);letter-spacing:.06em;font-size:1.05rem}
 
 /* ════════════════════════════════════════════════════════════
    CONSOLA WIDGET — la pieza central
@@ -245,9 +248,10 @@ section{padding:80px 0}
   padding:40px 0 100px;
   position:relative;
 }
-.console-hd{text-align:center;max-width:680px;margin:0 auto 40px}
-.console-hd h2{margin-bottom:14px}
-.console-hd p{color:var(--muted);font-size:1.05rem}
+.console-hd{text-align:center;max-width:720px;margin:0 auto 48px}
+.console-hd h2{margin-bottom:18px}
+.console-hd p{color:var(--ink-2);font-size:1.2rem;font-weight:400;line-height:1.55}
+.console-hd p b{color:var(--ink);font-weight:700}
 
 .console-frame{
   max-width:1200px;margin:0 auto;
@@ -295,39 +299,39 @@ section{padding:80px 0}
 .faq{max-width:780px;margin:0 auto}
 .faq-item{
   border-bottom:1px solid var(--line);
-  padding:20px 0;
+  padding:24px 0;
   cursor:pointer;
 }
 .faq-q{
   display:flex;align-items:center;justify-content:space-between;gap:16px;
-  font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--ink);
+  font-family:var(--display);font-weight:800;font-size:1.2rem;color:var(--ink);
 }
-.faq-q::after{content:'+';font-weight:300;color:var(--bronze-d);font-size:1.6rem;line-height:1;transition:transform .2s}
+.faq-q::after{content:'+';font-weight:300;color:var(--bronze-d);font-size:1.8rem;line-height:1;transition:transform .2s}
 .faq-item.open .faq-q::after{transform:rotate(45deg)}
 .faq-a{
   max-height:0;overflow:hidden;
   transition:max-height .3s;
-  color:var(--muted);font-size:.95rem;
+  color:var(--ink-2);font-size:1.05rem;line-height:1.65;
 }
-.faq-item.open .faq-a{max-height:300px;padding-top:14px}
+.faq-item.open .faq-a{max-height:300px;padding-top:16px}
 
 /* ════════════════════════════════════════════════════════════
    FOOTER
    ════════════════════════════════════════════════════════════ */
 .foot{
-  background:var(--ink);color:rgba(255,255,255,.6);
-  padding:60px 0 30px;font-size:.88rem;
+  background:var(--ink);color:#C9C6BE;
+  padding:64px 0 32px;font-size:.98rem;
 }
-.foot h4{color:#fff;font-family:var(--display);font-weight:800;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
-.foot a{color:rgba(255,255,255,.6)}
+.foot h4{color:#fff;font-family:var(--display);font-weight:800;font-size:.95rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.foot a{color:#C9C6BE;line-height:1.9}
 .foot a:hover{color:var(--bronze)}
-.foot-grid{display:grid;gap:32px;grid-template-columns:1fr}
+.foot-grid{display:grid;gap:36px;grid-template-columns:1fr}
 @media(min-width:640px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
 .foot-bot{
-  margin-top:48px;padding-top:24px;
-  border-top:1px solid rgba(255,255,255,.08);
+  margin-top:52px;padding-top:28px;
+  border-top:1px solid rgba(255,255,255,.1);
   display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;
-  font-size:.78rem;color:rgba(255,255,255,.4);
+  font-size:.85rem;color:#9A9790;
 }
 
 /* ── FAB WhatsApp ───────────────────────────────────────────── */
@@ -512,7 +516,7 @@ section{padding:80px 0}
           </span>
           <strong style="color:#fff;font-family:var(--display);letter-spacing:.05em">CLÍNICA MIRÓ</strong>
         </div>
-        <p style="font-size:.85rem;line-height:1.6">Odontología predictiva. Modelo 4P.<br>Av. Nueva Providencia 2214, Of. 189<br>Providencia, Santiago.</p>
+        <p style="font-size:.98rem;line-height:1.7;color:#C9C6BE">Odontología predictiva. Modelo 4P.<br>Av. Nueva Providencia 2214, Of. 189<br>Providencia, Santiago.</p>
       </div>
       <div>
         <h4>MIRO.DX</h4>
