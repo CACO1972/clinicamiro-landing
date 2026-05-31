@@ -147,8 +147,20 @@ section{padding:80px 0}
   mask-image:radial-gradient(ellipse at center,#000 0%,transparent 70%);
   -webkit-mask-image:radial-gradient(ellipse at center,#000 0%,transparent 70%);
   pointer-events:none;
+  z-index:1;
 }
-.hero-in{position:relative;z-index:2;width:100%}
+.hero-canvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:1;
+  opacity:.85;
+  mask-image:radial-gradient(ellipse at center,#000 0%,#000 50%,transparent 90%);
+  -webkit-mask-image:radial-gradient(ellipse at center,#000 0%,#000 50%,transparent 90%);
+}
+.hero-in{position:relative;z-index:3;width:100%}
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:10px;
   font-family:var(--body);font-weight:700;
@@ -206,7 +218,7 @@ section{padding:80px 0}
   color:#D9D6CE;
   font-weight:600;
   display:flex;flex-direction:column;align-items:center;gap:14px;
-  z-index:2;
+  z-index:3;
   cursor:pointer;
   transition:opacity .3s ease, transform .3s ease;
 }
@@ -452,6 +464,7 @@ section{padding:80px 0}
      HERO — el gancho
      ════════════════════════════════════════════════════════════ -->
 <header class="hero">
+  <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
   <div class="wrap hero-in">
     <div class="hero-eyebrow fade-up">
       <span class="dot"></span>
@@ -739,6 +752,154 @@ if('IntersectionObserver' in window && consoleEl){
   io.observe(consoleEl);
 }
 */
+
+// ════════════════════════════════════════════════════════════════
+// HERO CANVAS — Constellation network (partículas doradas conectadas)
+// Sugiere visualmente "tu caso cruzado con miles de diagnósticos"
+// ════════════════════════════════════════════════════════════════
+(function heroConstellation(){
+  const canvas=document.getElementById('heroCanvas');
+  if(!canvas)return;
+
+  // Respetar prefers-reduced-motion: no animar (fondo queda transparente, grid se ve igual)
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    canvas.style.display='none';
+    return;
+  }
+
+  const ctx=canvas.getContext('2d', { alpha:true });
+  const dpr=Math.min(window.devicePixelRatio||1, 2); // tope dpr=2 para mobile retina sin ahogar
+
+  // Detección de dispositivo de baja performance (mobile, pocos cores)
+  const isLowEnd=(navigator.hardwareConcurrency||4)<=4 && /Mobi|Android/i.test(navigator.userAgent);
+
+  let particles=[];
+  let w=0,h=0;
+  let animId=null;
+  let running=true;
+
+  // Config
+  const COUNT=isLowEnd?40:75;        // partículas
+  const MAX_DIST=isLowEnd?110:140;   // distancia para dibujar línea
+  const MAX_DIST_SQ=MAX_DIST*MAX_DIST;
+  const BRONZE='211,164,54';         // RGB de #D3A436
+
+  function resize(){
+    const r=canvas.getBoundingClientRect();
+    w=r.width;h=r.height;
+    canvas.width=Math.round(w*dpr);
+    canvas.height=Math.round(h*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  function spawn(){
+    particles=[];
+    for(let i=0;i<COUNT;i++){
+      particles.push({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        vx:(Math.random()-.5)*.25,   // velocidad lenta
+        vy:(Math.random()-.5)*.25,
+        r: Math.random()*1.4+.6,     // radio 0.6–2.0px
+        glow: Math.random()*.5+.5    // intensidad individual
+      });
+    }
+  }
+
+  function step(){
+    if(!running)return;
+    ctx.clearRect(0,0,w,h);
+
+    // Movimiento + dibujo de partículas
+    for(let i=0;i<particles.length;i++){
+      const p=particles[i];
+      p.x+=p.vx;
+      p.y+=p.vy;
+      // Wrap suave en bordes (loop continuo)
+      if(p.x<-10)p.x=w+10; else if(p.x>w+10)p.x=-10;
+      if(p.y<-10)p.y=h+10; else if(p.y>h+10)p.y=-10;
+
+      // Dibujar partícula con glow sutil
+      const grad=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
+      grad.addColorStop(0,`rgba(${BRONZE},${.85*p.glow})`);
+      grad.addColorStop(.4,`rgba(${BRONZE},${.25*p.glow})`);
+      grad.addColorStop(1,`rgba(${BRONZE},0)`);
+      ctx.fillStyle=grad;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
+      ctx.fill();
+
+      // Núcleo brillante
+      ctx.fillStyle=`rgba(${BRONZE},${.95*p.glow})`;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fill();
+    }
+
+    // Líneas conectoras (constellation)
+    ctx.lineWidth=.6;
+    for(let i=0;i<particles.length;i++){
+      const a=particles[i];
+      for(let j=i+1;j<particles.length;j++){
+        const b=particles[j];
+        const dx=a.x-b.x, dy=a.y-b.y;
+        const dsq=dx*dx+dy*dy;
+        if(dsq<MAX_DIST_SQ){
+          const alpha=(1-dsq/MAX_DIST_SQ)*.35; // más cerca = más opaco
+          ctx.strokeStyle=`rgba(${BRONZE},${alpha})`;
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);
+          ctx.lineTo(b.x,b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    animId=requestAnimationFrame(step);
+  }
+
+  function startAnim(){
+    if(animId)cancelAnimationFrame(animId);
+    running=true;
+    animId=requestAnimationFrame(step);
+  }
+  function stopAnim(){
+    running=false;
+    if(animId){cancelAnimationFrame(animId);animId=null}
+  }
+
+  // Pausar cuando el hero sale del viewport (ahorra batería en mobile)
+  if('IntersectionObserver' in window){
+    const heroEl=document.querySelector('.hero');
+    if(heroEl){
+      const io=new IntersectionObserver((entries)=>{
+        entries.forEach(en=>{
+          if(en.isIntersecting) startAnim();
+          else stopAnim();
+        });
+      },{threshold:0.05});
+      io.observe(heroEl);
+    }
+  }
+
+  // Pausar al cambiar de tab
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden) stopAnim();
+    else if(document.querySelector('.hero')?.getBoundingClientRect().bottom>0) startAnim();
+  });
+
+  // Resize con debounce
+  let resizeTimer;
+  window.addEventListener('resize',()=>{
+    clearTimeout(resizeTimer);
+    resizeTimer=setTimeout(()=>{resize();spawn();},150);
+  });
+
+  // Init
+  resize();
+  spawn();
+  startAnim();
+})();
 </script>
 </body>
 </html>
