@@ -3,18 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="MIRO.DX · Segunda opinión odontológica con inteligencia artificial. Análisis predictivo gratis por tiempo limitado. Clínica Miró, Providencia.">
+<meta name="description" content="Tres dentistas. Tres diagnósticos distintos. MIRO.DX te entrega una segunda opinión odontológica con IA. Gratis por tiempo limitado.">
 <meta name="theme-color" content="#090B0B">
-<title>Clínica Miró · MIRO.DX — Segunda Opinión con IA</title>
+<title>Clínica Miró · MIRO.DX — Tres dentistas, tres diagnósticos distintos.</title>
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="MIRO.DX · Segunda opinión odontológica con IA">
-<meta property="og:description" content="Análisis predictivo gratis por tiempo limitado. Con evidencia. No con opinión.">
-<meta property="og:url" content="https://clinicamiro.cl/dx">
+<meta property="og:title" content="Tres dentistas. Tres diagnósticos distintos.">
+<meta property="og:description" content="MIRO.DX te da una segunda opinión odontológica con IA. Sin intereses. Sin sesgo. Con evidencia.">
+<meta property="og:url" content="https://clinicamiro.cl">
 <meta property="og:locale" content="es_CL">
 
-<!-- Fuentes -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -38,7 +37,6 @@
   --r-sm:4px;
   --r-md:8px;
   --r-lg:16px;
-  --shadow-sm:0 2px 8px rgba(9,11,11,.04);
   --shadow-md:0 8px 24px rgba(9,11,11,.06);
   --shadow-lg:0 24px 60px rgba(9,11,11,.08);
   --max-w:1200px;
@@ -58,17 +56,17 @@ body{
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 
-/* ── tipografía ─────────────────────────────────────────────── */
 h1,h2,h3,.display{
   font-family:var(--display);
   font-weight:900;
   color:var(--ink);
-  line-height:1.05;
-  letter-spacing:-.02em;
+  line-height:1.02;
+  letter-spacing:-.025em;
 }
-h1{font-size:clamp(2.4rem,6vw,4.8rem)}
+h1{font-size:clamp(2.6rem,7.5vw,6rem)}
 h2{font-size:clamp(1.8rem,4vw,3rem)}
 h3{font-size:clamp(1.2rem,2.5vw,1.6rem)}
+
 .eyebrow{
   font-family:var(--body);
   font-weight:600;
@@ -79,155 +77,184 @@ h3{font-size:clamp(1.2rem,2.5vw,1.6rem)}
 }
 .lead{font-size:clamp(1.05rem,1.6vw,1.2rem);color:var(--muted);max-width:62ch}
 
-/* ── layout ─────────────────────────────────────────────────── */
 .wrap{max-width:var(--max-w);margin:0 auto;padding:0 24px}
 section{padding:80px 0}
 @media(min-width:768px){section{padding:120px 0}}
 
-/* ── nav ────────────────────────────────────────────────────── */
+/* ── NAV ─────────────────────────────────────────────────────── */
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:50;
-  background:rgba(255,255,255,.85);
+  background:rgba(9,11,11,.85);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);
+  border-bottom:1px solid rgba(255,255,255,.06);
 }
+.nav.scrolled{background:rgba(255,255,255,.92);border-bottom-color:var(--line)}
 .nav-in{
   max-width:var(--max-w);margin:0 auto;padding:14px 24px;
   display:flex;align-items:center;justify-content:space-between;
 }
-.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:900;font-size:1.05rem;color:var(--ink);letter-spacing:.02em}
-.logo-mark{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:32px;height:32px;
-}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:900;font-size:1.05rem;color:#fff;letter-spacing:.02em;transition:color .2s}
+.nav.scrolled .logo{color:var(--ink)}
+.logo-mark{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px}
 .logo-mark svg{width:100%;height:100%}
-.nav-links{display:none;gap:28px;font-size:.92rem;color:var(--ink-2);font-weight:500}
-.nav-links a:hover{color:var(--bronze-d)}
+.nav-links{display:none;gap:28px;font-size:.92rem;color:rgba(255,255,255,.85);font-weight:500;transition:color .2s}
+.nav.scrolled .nav-links{color:var(--ink-2)}
+.nav-links a:hover{color:var(--bronze)}
 @media(min-width:768px){.nav-links{display:flex}}
 
-/* ── botones ────────────────────────────────────────────────── */
+/* ── BOTONES ─────────────────────────────────────────────────── */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
   padding:14px 28px;
   font-family:var(--body);font-weight:600;font-size:.95rem;
   border-radius:var(--r-sm);border:none;cursor:pointer;
-  transition:transform .15s ease,box-shadow .2s ease,background .2s ease;
+  transition:transform .15s,box-shadow .2s,background .2s,border-color .2s;
   letter-spacing:.02em;
 }
 .btn-primary{background:var(--bronze);color:#fff}
-.btn-primary:hover{background:var(--bronze-d);transform:translateY(-1px);box-shadow:0 8px 20px rgba(211,164,54,.25)}
+.btn-primary:hover{background:var(--bronze-d);transform:translateY(-1px);box-shadow:0 8px 20px rgba(211,164,54,.3)}
+.btn-ghost-dark{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25)}
+.btn-ghost-dark:hover{border-color:var(--bronze);color:var(--bronze)}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
 .btn-ghost:hover{border-color:var(--ink);background:var(--ink);color:#fff}
-.btn-arrow::after{content:'→';transition:transform .15s ease}
+.btn-arrow::after{content:'→';transition:transform .15s}
 .btn-arrow:hover::after{transform:translateX(4px)}
 .btn-sm{padding:10px 18px;font-size:.85rem}
+.btn-lg{padding:18px 36px;font-size:1.05rem}
 
-/* ── hero ───────────────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   HERO — gancho a pantalla completa, fondo negro
+   ════════════════════════════════════════════════════════════ */
 .hero{
-  padding:140px 0 80px;
-  background:
-    radial-gradient(1200px 500px at 80% -10%,var(--bronze-soft),transparent 70%),
-    radial-gradient(900px 400px at 0% 100%,rgba(9,11,11,.03),transparent 70%),
-    var(--bg);
-  position:relative;overflow:hidden;
-}
-.hero-grid{display:grid;gap:48px;align-items:center}
-@media(min-width:960px){.hero-grid{grid-template-columns:1.15fr .85fr}}
-.hero h1 span{color:var(--bronze-d)}
-.hero-sub{margin-top:24px;font-size:clamp(1.05rem,1.6vw,1.2rem);color:var(--muted);max-width:54ch}
-.hero-ctas{margin-top:36px;display:flex;flex-wrap:wrap;gap:12px}
-.hero-meta{
-  margin-top:36px;display:flex;flex-wrap:wrap;gap:24px;
-  font-size:.85rem;color:var(--muted);
-}
-.hero-meta b{color:var(--ink);font-weight:700}
-.hero-bar{
-  display:inline-flex;align-items:center;gap:10px;
-  background:var(--bronze-soft);
-  border:1px solid rgba(211,164,54,.2);
-  padding:8px 14px;border-radius:999px;
-  font-size:.8rem;color:var(--bronze-d);font-weight:600;
-  letter-spacing:.06em;text-transform:uppercase;
-  margin-bottom:20px;
-}
-.hero-bar .dot{width:6px;height:6px;border-radius:50%;background:var(--bronze);box-shadow:0 0 8px var(--bronze)}
-
-.hero-visual{
   position:relative;
-  aspect-ratio:1/1;max-width:480px;margin:0 auto;
-}
-.hero-visual-card{
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,#1C2121 0%,#090B0B 100%);
-  border-radius:var(--r-lg);
-  box-shadow:var(--shadow-lg);
-  overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-}
-.hero-visual-card::before{
-  content:'';position:absolute;inset:0;
+  min-height:100vh;
   background:
-    radial-gradient(400px 300px at 30% 30%,rgba(211,164,54,.15),transparent 70%),
-    radial-gradient(300px 200px at 70% 80%,rgba(211,164,54,.08),transparent 70%);
+    radial-gradient(900px 600px at 75% 30%,rgba(211,164,54,.13),transparent 60%),
+    radial-gradient(700px 500px at 15% 85%,rgba(211,164,54,.06),transparent 60%),
+    linear-gradient(180deg,#0a0d0d 0%,#090B0B 100%);
+  color:#fff;
+  display:flex;align-items:center;
+  overflow:hidden;
+  padding:120px 0 80px;
 }
-.hero-visual-content{position:relative;text-align:center;color:#fff;padding:32px}
-.hero-visual-content .big{font-family:var(--display);font-weight:900;font-size:clamp(2rem,4vw,3rem);line-height:1;letter-spacing:-.02em;margin-bottom:8px}
-.hero-visual-content .small{font-family:'Outfit',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze);opacity:.8}
-.hero-visual-content .pill{display:inline-flex;margin-top:20px;padding:6px 14px;background:rgba(211,164,54,.15);border:1px solid rgba(211,164,54,.3);border-radius:999px;font-size:.75rem;color:var(--bronze);letter-spacing:.1em;text-transform:uppercase}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse at center,#000 0%,transparent 70%);
+  -webkit-mask-image:radial-gradient(ellipse at center,#000 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-in{position:relative;z-index:2;width:100%}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--body);font-weight:600;
+  font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--bronze);
+  margin-bottom:32px;
+  padding:8px 16px;
+  border:1px solid rgba(211,164,54,.3);
+  border-radius:999px;
+  background:rgba(211,164,54,.05);
+}
+.hero-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--bronze);box-shadow:0 0 12px var(--bronze);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* ── secciones ──────────────────────────────────────────────── */
-.sec-hd{margin-bottom:48px;max-width:60ch}
-.sec-hd .eyebrow{display:block;margin-bottom:14px}
-.sec-hd p{margin-top:16px}
+.hero h1{color:#fff;margin-bottom:24px}
+.hero h1 .l1,
+.hero h1 .l2,
+.hero h1 .l3{display:block}
+.hero h1 .accent{color:var(--bronze)}
+.hero h1 .l3{
+  font-size:.6em;
+  color:rgba(255,255,255,.55);
+  font-weight:700;
+  letter-spacing:-.015em;
+  margin-top:24px;
+  line-height:1.25;
+  max-width:24ch;
+}
+.hero h1 .l3 b{color:#fff;font-weight:800}
 
-.bg-soft{background:var(--bg-soft)}
-.bg-dark{background:var(--ink);color:#fff}
-.bg-dark h1,.bg-dark h2,.bg-dark h3{color:#fff}
-.bg-dark .lead,.bg-dark .muted{color:rgba(255,255,255,.65)}
+.hero-sub{
+  margin-top:36px;
+  font-size:clamp(1.1rem,1.7vw,1.25rem);
+  color:rgba(255,255,255,.75);
+  max-width:54ch;
+  line-height:1.65;
+}
 
-/* ── grid de beneficios ────────────────────────────────────── */
-.bens{display:grid;gap:24px;grid-template-columns:1fr}
-@media(min-width:640px){.bens{grid-template-columns:1fr 1fr}}
-@media(min-width:960px){.bens{grid-template-columns:1fr 1fr 1fr}}
-.ben{
-  padding:32px 28px;
-  background:var(--bg);
+.hero-ctas{margin-top:42px;display:flex;flex-wrap:wrap;gap:14px}
+
+.hero-meta{
+  margin-top:48px;
+  display:flex;flex-wrap:wrap;gap:32px;
+  font-size:.85rem;color:rgba(255,255,255,.5);
+}
+.hero-meta b{color:#fff;font-weight:700;display:block;font-size:1.4rem;font-family:var(--display);margin-bottom:2px}
+.hero-meta .item{padding-right:32px;border-right:1px solid rgba(255,255,255,.08)}
+.hero-meta .item:last-child{border:none;padding-right:0}
+
+.hero-scroll{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  font-family:var(--body);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  z-index:2;
+}
+.hero-scroll::after{
+  content:'';width:1px;height:32px;background:linear-gradient(180deg,var(--bronze),transparent);
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ════════════════════════════════════════════════════════════
+   PROPUESTA — la solución detrás del gancho
+   ════════════════════════════════════════════════════════════ */
+.prop{
+  background:linear-gradient(180deg,var(--bg) 0%,var(--bg-soft) 100%);
+  padding:100px 0;
+  text-align:center;
+}
+.prop .wrap{max-width:880px}
+.prop-eyebrow{color:var(--bronze-d);margin-bottom:18px;display:inline-block}
+.prop h2{margin-bottom:24px}
+.prop p{font-size:clamp(1.1rem,1.7vw,1.3rem);color:var(--ink-2);line-height:1.6;max-width:60ch;margin:0 auto}
+.prop-badge{
+  display:inline-flex;align-items:center;gap:12px;
+  margin-top:40px;
+  padding:14px 28px;
+  background:#fff;
   border:1px solid var(--line);
-  border-radius:var(--r-md);
-  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+  border-radius:999px;
+  font-family:var(--body);font-weight:600;font-size:.9rem;
+  color:var(--ink);
+  box-shadow:var(--shadow-md);
 }
-.ben:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:rgba(211,164,54,.3)}
-.ben-num{font-family:var(--display);font-weight:900;font-size:2.4rem;color:var(--bronze);line-height:1;margin-bottom:14px}
-.ben h3{margin-bottom:8px}
-.ben p{color:var(--muted);font-size:.95rem}
+.prop-badge .pulse{width:8px;height:8px;border-radius:50%;background:var(--bronze);box-shadow:0 0 12px var(--bronze);animation:pulse 2s ease-in-out infinite}
+.prop-badge b{color:var(--bronze-d);letter-spacing:.05em}
 
-/* ── proceso (3 pasos) ─────────────────────────────────────── */
-.steps{display:grid;gap:28px;grid-template-columns:1fr;counter-reset:s}
-@media(min-width:768px){.steps{grid-template-columns:1fr 1fr 1fr}}
-.step{
-  padding:28px 24px;border-radius:var(--r-md);
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  counter-increment:s;
+/* ════════════════════════════════════════════════════════════
+   CONSOLA WIDGET — la pieza central
+   ════════════════════════════════════════════════════════════ */
+.console-section{
+  background:var(--bg-soft);
+  padding:40px 0 100px;
+  position:relative;
 }
-.step::before{
-  content:counter(s,decimal-leading-zero);
-  display:block;font-family:var(--display);font-weight:900;font-size:.9rem;
-  color:var(--bronze);letter-spacing:.1em;margin-bottom:14px;
-}
-.step h3{font-size:1.1rem;margin-bottom:8px}
-.step p{color:rgba(255,255,255,.65);font-size:.92rem;line-height:1.6}
+.console-hd{text-align:center;max-width:680px;margin:0 auto 40px}
+.console-hd h2{margin-bottom:14px}
+.console-hd p{color:var(--muted);font-size:1.05rem}
 
-/* ── consola widget ─────────────────────────────────────────── */
-.console-section{background:linear-gradient(180deg,var(--bg) 0%,var(--bg-soft) 100%);padding:60px 0 100px;position:relative}
 .console-frame{
   max-width:1200px;margin:0 auto;
   background:#0a0d0d;
   border-radius:var(--r-lg);
-  box-shadow:var(--shadow-lg),0 0 0 1px rgba(211,164,54,.15);
+  box-shadow:var(--shadow-lg),0 0 0 1px rgba(211,164,54,.18);
   overflow:hidden;
-  position:relative;
 }
 .console-bar{
   display:flex;align-items:center;justify-content:space-between;
@@ -242,26 +269,29 @@ section{padding:80px 0}
 .console-dots span:nth-child(2){background:#ffbd2e}
 .console-dots span:last-child{background:#27c93f}
 .console-title{font-family:'Outfit',monospace;font-size:.8rem;letter-spacing:.15em;color:var(--bronze);font-weight:600;text-transform:uppercase}
-.console-tag{font-family:'Outfit',monospace;font-size:.7rem;letter-spacing:.1em;color:rgba(255,255,255,.4);background:rgba(211,164,54,.1);padding:4px 10px;border-radius:3px;border:1px solid rgba(211,164,54,.2)}
+.console-tag{font-family:'Outfit',monospace;font-size:.7rem;letter-spacing:.1em;color:rgba(255,255,255,.5);background:rgba(211,164,54,.1);padding:4px 10px;border-radius:3px;border:1px solid rgba(211,164,54,.2)}
 .console-iframe{
-  width:100%;
-  border:none;display:block;
-  background:#0a0d0d;
-  height:760px;
-  min-height:600px;
+  width:100%;border:none;display:block;background:#0a0d0d;
+  height:760px;min-height:600px;
 }
 @media(max-width:767px){.console-iframe{height:80vh;min-height:500px}}
-
-.console-fallback{display:none;padding:32px;color:rgba(255,255,255,.7);text-align:center}
-.console-fallback a{color:var(--bronze);font-weight:600}
 
 .console-helpers{
   display:flex;flex-wrap:wrap;justify-content:center;gap:14px;
   margin-top:28px;font-size:.88rem;color:var(--muted);
 }
 .console-helpers a{color:var(--bronze-d);font-weight:600;border-bottom:1px dotted var(--bronze-d)}
+.console-helpers a:hover{color:var(--bronze)}
 
-/* ── FAQ ────────────────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   FAQ
+   ════════════════════════════════════════════════════════════ */
+.faq-section{padding:100px 0}
+.sec-hd{margin-bottom:48px;max-width:60ch}
+.sec-hd-center{text-align:center;margin:0 auto 48px}
+.sec-hd .eyebrow{display:block;margin-bottom:14px}
+.sec-hd p{margin-top:16px}
+
 .faq{max-width:780px;margin:0 auto}
 .faq-item{
   border-bottom:1px solid var(--line);
@@ -272,16 +302,18 @@ section{padding:80px 0}
   display:flex;align-items:center;justify-content:space-between;gap:16px;
   font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--ink);
 }
-.faq-q::after{content:'+';font-weight:300;color:var(--bronze-d);font-size:1.6rem;line-height:1;transition:transform .2s ease}
+.faq-q::after{content:'+';font-weight:300;color:var(--bronze-d);font-size:1.6rem;line-height:1;transition:transform .2s}
 .faq-item.open .faq-q::after{transform:rotate(45deg)}
 .faq-a{
   max-height:0;overflow:hidden;
-  transition:max-height .3s ease;
+  transition:max-height .3s;
   color:var(--muted);font-size:.95rem;
 }
 .faq-item.open .faq-a{max-height:300px;padding-top:14px}
 
-/* ── footer ─────────────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════════════════════════ */
 .foot{
   background:var(--ink);color:rgba(255,255,255,.6);
   padding:60px 0 30px;font-size:.88rem;
@@ -298,24 +330,25 @@ section{padding:80px 0}
   font-size:.78rem;color:rgba(255,255,255,.4);
 }
 
-/* ── motion ─────────────────────────────────────────────────── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.fade-up{animation:fadeUp .6s ease both}
-.fade-up-1{animation-delay:.1s}
-.fade-up-2{animation-delay:.2s}
-.fade-up-3{animation-delay:.3s}
-
-/* ── floating WhatsApp ─────────────────────────────────────── */
+/* ── FAB WhatsApp ───────────────────────────────────────────── */
 .fab-wsp{
   position:fixed;bottom:20px;right:20px;z-index:40;
   width:54px;height:54px;border-radius:50%;
   background:#25D366;color:#fff;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 8px 24px rgba(37,211,102,.35);
-  transition:transform .15s ease;
+  box-shadow:0 8px 24px rgba(37,211,102,.4);
+  transition:transform .15s;
 }
 .fab-wsp:hover{transform:scale(1.05)}
 .fab-wsp svg{width:28px;height:28px;fill:#fff}
+
+/* ── Motion ──────────────────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.fade-up{animation:fadeUp .7s ease both}
+.fade-up-1{animation-delay:.15s}
+.fade-up-2{animation-delay:.3s}
+.fade-up-3{animation-delay:.45s}
+.fade-up-4{animation-delay:.6s}
 </style>
 </head>
 <body>
@@ -323,20 +356,17 @@ section{padding:80px 0}
 <!-- ════════════════════════════════════════════════════════════
      NAV
      ════════════════════════════════════════════════════════════ -->
-<nav class="nav">
+<nav class="nav" id="nav">
   <div class="nav-in">
     <a href="/" class="logo">
       <span class="logo-mark">
-        <!-- Logo Clínica Miró: M angular en bronce con separador vertical -->
         <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M8 52 L8 12 L20 12 L32 32 L44 12 L56 12 L56 52 L48 52 L48 22 L36 40 L28 40 L16 22 L16 52 Z" fill="#D3A436"/>
-          <line x1="62" y1="14" x2="62" y2="50" stroke="#D3A436" stroke-width="1.5"/>
         </svg>
       </span>
       <span>CLÍNICA MIRÓ</span>
     </a>
     <div class="nav-links">
-      <a href="#proceso">Proceso</a>
       <a href="#consola">La consola</a>
       <a href="#faq">Preguntas</a>
       <a href="#contacto">Contacto</a>
@@ -346,89 +376,53 @@ section{padding:80px 0}
 </nav>
 
 <!-- ════════════════════════════════════════════════════════════
-     HERO
+     HERO — el gancho
      ════════════════════════════════════════════════════════════ -->
 <header class="hero">
-  <div class="wrap hero-grid">
-    <div class="fade-up">
-      <div class="hero-bar"><span class="dot"></span>Gratis · 30 días · Programa piloto</div>
-      <h1>Una segunda opinión <span>sin intereses,</span> en menos de 5 minutos.</h1>
-      <p class="hero-sub">MIRO.DX cruza tu caso con miles de diagnósticos reales y te entrega un análisis predictivo. Con evidencia. No con opinión.</p>
-      <div class="hero-ctas">
-        <a href="#consola" class="btn btn-primary btn-arrow">Quiero certeza</a>
-        <a href="#proceso" class="btn btn-ghost">Cómo funciona</a>
-      </div>
-      <div class="hero-meta">
-        <span><b>+11.000</b> implantes documentados</span>
-        <span><b>30+</b> años de experiencia clínica</span>
-        <span><b>4P</b> · Modelo predictivo</span>
-      </div>
+  <div class="wrap hero-in">
+    <div class="hero-eyebrow fade-up">
+      <span class="dot"></span>
+      <span>MIRO.DX · Gratis por tiempo limitado</span>
     </div>
-    <div class="hero-visual fade-up fade-up-2" aria-hidden="true">
-      <div class="hero-visual-card">
-        <div class="hero-visual-content">
-          <div class="small">Modelo 4P</div>
-          <div class="big">PREDICTIVA<br>PERSONALIZADA<br>PREVENTIVA<br>PARTICIPATIVA</div>
-          <div class="pill">Odontología del futuro</div>
-        </div>
-      </div>
+
+    <h1 class="fade-up fade-up-1">
+      <span class="l1">Tres dentistas.</span>
+      <span class="l2">Tres diagnósticos <span class="accent">distintos.</span></span>
+      <span class="l3">Una sola verdad: <b>la tuya, cruzada con datos.</b></span>
+    </h1>
+
+    <p class="hero-sub fade-up fade-up-2">
+      MIRO.DX es la primera segunda opinión odontológica con inteligencia artificial. Sin intereses comerciales. Sin sesgo. Con evidencia.
+    </p>
+
+    <div class="hero-ctas fade-up fade-up-3">
+      <a href="#consola" class="btn btn-primary btn-lg btn-arrow">Quiero mi segunda opinión</a>
+      <a href="#como-funciona" class="btn btn-ghost-dark">Cómo funciona</a>
+    </div>
+
+    <div class="hero-meta fade-up fade-up-4">
+      <div class="item"><b>+11.000</b>Implantes documentados</div>
+      <div class="item"><b>30+</b>Años de experiencia clínica</div>
+      <div class="item"><b>5 min</b>Tu análisis completo</div>
     </div>
   </div>
+
+  <div class="hero-scroll">Baja para empezar</div>
 </header>
 
 <!-- ════════════════════════════════════════════════════════════
-     BENEFICIOS
+     PROPUESTA — la solución detrás del gancho
      ════════════════════════════════════════════════════════════ -->
-<section id="por-que">
+<section class="prop" id="como-funciona">
   <div class="wrap">
-    <div class="sec-hd fade-up">
-      <span class="eyebrow">Por qué esto es distinto</span>
-      <h2>No es una evaluación más.<br>Es la verdad cruzada con datos.</h2>
-      <p class="lead">Diagnósticos contradictorios entre clínicas son la norma, no la excepción. Te explicamos por qué — y te damos un punto de referencia objetivo.</p>
-    </div>
-    <div class="bens">
-      <article class="ben fade-up">
-        <div class="ben-num">01</div>
-        <h3>Sin conflicto de interés</h3>
-        <p>El análisis es predictivo y trazable. No te lo da quien va a tratarte.</p>
-      </article>
-      <article class="ben fade-up fade-up-1">
-        <div class="ben-num">02</div>
-        <h3>Cruzado con miles de casos</h3>
-        <p>11.000+ implantes documentados y 4.126 casos clínicos comparados en tiempo real.</p>
-      </article>
-      <article class="ben fade-up fade-up-2">
-        <div class="ben-num">03</div>
-        <h3>En 5 minutos, no en 5 visitas</h3>
-        <p>Identificación, anamnesis, captura, análisis IA y resultados. Todo en una sola sesión.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════════════════
-     PROCESO
-     ════════════════════════════════════════════════════════════ -->
-<section id="proceso" class="bg-dark">
-  <div class="wrap">
-    <div class="sec-hd fade-up">
-      <span class="eyebrow" style="color:var(--bronze)">Cómo funciona</span>
-      <h2>Tres pasos. Sin compromiso.</h2>
-      <p class="lead">El sistema es operado por Rodrigo, asistente clínico por voz. Tú avanzas a tu ritmo.</p>
-    </div>
-    <div class="steps">
-      <div class="step fade-up">
-        <h3>Identificación</h3>
-        <p>Nombre, RUT, email y WhatsApp. Es la única forma de enviarte tu informe y poder contactarte si encontramos algo importante.</p>
-      </div>
-      <div class="step fade-up fade-up-1">
-        <h3>Análisis con IA</h3>
-        <p>Anamnesis breve, captura dental con tu cámara y procesamiento por seis modelos especializados (SCANDENT, IMPLANTX, SIMETRÍA, ZEROCARIES, ARMONÍA, CLARITY).</p>
-      </div>
-      <div class="step fade-up fade-up-2">
-        <h3>Resultados y siguiente paso</h3>
-        <p>Score de riesgo, hallazgos detectados y la opción de agendar con el especialista que mejor matchea tu caso. O simplemente conservar el informe.</p>
-      </div>
+    <span class="eyebrow prop-eyebrow">Por qué pasa esto</span>
+    <h2>Cada dentista te ve con sus ojos. Y con su agenda.</h2>
+    <p>
+      No es mala fe. Es estructural. Cada profesional interpreta según su especialidad, su experiencia y los tratamientos que ofrece. MIRO.DX cambia el ángulo: cruza tu caso con miles de diagnósticos reales y te entrega un análisis predictivo, sin que nadie esté tratando de venderte nada.
+    </p>
+    <div class="prop-badge">
+      <span class="pulse"></span>
+      <span><b>GRATIS</b> · Programa piloto · 30 días</span>
     </div>
   </div>
 </section>
@@ -438,10 +432,10 @@ section{padding:80px 0}
      ════════════════════════════════════════════════════════════ -->
 <section id="consola" class="console-section">
   <div class="wrap">
-    <div class="sec-hd fade-up" style="text-align:center;margin-left:auto;margin-right:auto">
+    <div class="console-hd fade-up">
       <span class="eyebrow">Tu sesión empieza aquí</span>
-      <h2>MIRO.DX · Consola clínica</h2>
-      <p class="lead" style="margin-left:auto;margin-right:auto">Presiona <b>play</b> dentro del panel y sigue las instrucciones de Rodrigo.</p>
+      <h2 style="margin-top:14px">MIRO.DX · Consola clínica</h2>
+      <p>Dale <b>play</b> dentro del panel y sigue las instrucciones de Rodrigo, tu asistente clínico por voz.</p>
     </div>
 
     <div class="console-frame fade-up">
@@ -460,9 +454,6 @@ section{padding:80px 0}
         allow="camera; microphone; autoplay; encrypted-media"
         loading="lazy"
         referrerpolicy="strict-origin-when-cross-origin"></iframe>
-      <div class="console-fallback" id="consoleFallback">
-        Si la consola no carga, <a href="https://miro-dx-console.vercel.app/" target="_blank">ábrela en una pestaña nueva</a>.
-      </div>
     </div>
 
     <div class="console-helpers">
@@ -477,17 +468,17 @@ section{padding:80px 0}
 <!-- ════════════════════════════════════════════════════════════
      FAQ
      ════════════════════════════════════════════════════════════ -->
-<section id="faq" class="bg-soft">
+<section id="faq" class="faq-section">
   <div class="wrap">
-    <div class="sec-hd fade-up" style="text-align:center;margin-left:auto;margin-right:auto">
+    <div class="sec-hd sec-hd-center fade-up">
       <span class="eyebrow">Preguntas frecuentes</span>
-      <h2>Lo que probablemente quieres saber.</h2>
+      <h2 style="margin-top:14px">Lo que probablemente quieres saber.</h2>
     </div>
     <div class="faq">
-      <div class="faq-item"><div class="faq-q">¿De verdad es gratis?</div><div class="faq-a">Sí. Estamos en programa piloto 30 días para validar la consola con pacientes reales. No te pedimos tarjeta.</div></div>
+      <div class="faq-item"><div class="faq-q">¿De verdad es gratis?</div><div class="faq-a">Sí. Estamos en programa piloto 30 días para validar la consola con pacientes reales. No te pedimos tarjeta de crédito.</div></div>
       <div class="faq-item"><div class="faq-q">¿Qué hacen con mis datos?</div><div class="faq-a">Cumplimos la Ley 21.719. Tus datos se guardan cifrados en infraestructura clínica certificada y solo se usan para procesar tu análisis y contactarte si tú lo autorizas.</div></div>
       <div class="faq-item"><div class="faq-q">¿Reemplaza a un dentista?</div><div class="faq-a">No. MIRO.DX te entrega una segunda opinión objetiva basada en evidencia. Cualquier diagnóstico definitivo requiere examen clínico presencial.</div></div>
-      <div class="faq-item"><div class="faq-q">¿Tengo que ir a la clínica?</div><div class="faq-a">No es obligatorio. Si tras el análisis quieres profundizar, te ofrecemos agenda directa con el especialista que mejor matchea tu caso. Si no, el informe queda contigo.</div></div>
+      <div class="faq-item"><div class="faq-q">¿Tengo que ir a la clínica después?</div><div class="faq-a">No es obligatorio. Si tras el análisis quieres profundizar, te ofrecemos agenda directa con el especialista que mejor matchea tu caso. Si no, el informe queda contigo.</div></div>
       <div class="faq-item"><div class="faq-q">¿Qué necesito para usar la consola?</div><div class="faq-a">Un teléfono o computador con cámara, audio activado y unos 5 minutos sin interrupciones. Recomendamos una habitación bien iluminada.</div></div>
     </div>
   </div>
@@ -496,8 +487,8 @@ section{padding:80px 0}
 <!-- ════════════════════════════════════════════════════════════
      CONTACTO / CTA FINAL
      ════════════════════════════════════════════════════════════ -->
-<section id="contacto">
-  <div class="wrap" style="text-align:center;max-width:760px;margin-left:auto;margin-right:auto">
+<section id="contacto" style="background:var(--bg-soft);text-align:center">
+  <div class="wrap" style="max-width:760px">
     <span class="eyebrow">Clínica Miró · Providencia</span>
     <h2 style="margin-top:14px">¿Prefieres venir directamente?</h2>
     <p class="lead" style="margin:16px auto 32px">Av. Nueva Providencia 2214, Of. 189 · Providencia, Santiago. Dirección clínica: Dr. Carlos Montoya. 30+ años de experiencia.</p>
@@ -526,7 +517,7 @@ section{padding:80px 0}
       <div>
         <h4>MIRO.DX</h4>
         <a href="#consola">Consola</a><br>
-        <a href="#proceso">Proceso</a><br>
+        <a href="#como-funciona">Cómo funciona</a><br>
         <a href="#faq">Preguntas</a>
       </div>
       <div>
@@ -552,48 +543,27 @@ section{padding:80px 0}
 <!-- ════════════════════════════════════════════════════════════
      FAB WhatsApp
      ════════════════════════════════════════════════════════════ -->
-<a href="https://wa.me/56974157966?text=Hola%2C%20vengo%20del%20landing%20MIRO.DX" target="_blank" class="fab-wsp" aria-label="WhatsApp Clínica Miró" data-cta="fab_whatsapp">
+<a href="https://wa.me/56974157966?text=Hola%2C%20vengo%20del%20landing%20MIRO.DX" target="_blank" class="fab-wsp" aria-label="WhatsApp Clínica Miró">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.5.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
 </a>
 
-<!-- ════════════════════════════════════════════════════════════
-     SCRIPT
-     ════════════════════════════════════════════════════════════ -->
 <script>
 // ── FAQ accordion ─────────────────────────────────────────────
 document.querySelectorAll('.faq-item').forEach(item=>{
   item.addEventListener('click',()=>item.classList.toggle('open'));
 });
 
-// ── Capturar UTMs y propagar al iframe de la consola ──────────
-const params=new URLSearchParams(window.location.search);
-const utm={
-  source: params.get('utm_source')||'direct',
-  medium: params.get('utm_medium')||'',
-  campaign: params.get('utm_campaign')||'',
-  content: params.get('utm_content')||''
-};
+// ── Nav fondo blanco al scrollear ─────────────────────────────
+const nav=document.getElementById('nav');
+let lastScroll=0;
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  if(y>80) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+  lastScroll=y;
+});
 
-// Persistir UTMs en sessionStorage para no perderlos al cambiar de hash
-try{ sessionStorage.setItem('miro_utm', JSON.stringify(utm)); }catch(e){}
-
-const frame=document.getElementById('miroDxFrame');
-function pushUTM(){
-  if(!frame||!frame.contentWindow)return;
-  try{
-    frame.contentWindow.postMessage({type:'miro_utm', utm}, 'https://miro-dx-console.vercel.app');
-  }catch(e){}
-}
-if(frame){
-  frame.addEventListener('load',()=>{
-    pushUTM();
-    // Reintento por si la consola tarda en montar el listener
-    setTimeout(pushUTM,500);
-    setTimeout(pushUTM,1500);
-  });
-}
-
-// ── Smooth scroll a la consola desde CTAs internos ───────────
+// ── Smooth scroll a anclas ───────────────────────────────────
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
     const h=a.getAttribute('href');
@@ -604,7 +574,27 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   });
 });
 
-// ── Tracking básico de scroll-to-console ────────────────────
+// ── Propagar UTMs al iframe de la consola (sin tracking server-side todavía) ──
+const params=new URLSearchParams(window.location.search);
+const utm={
+  source: params.get('utm_source')||'direct',
+  medium: params.get('utm_medium')||'',
+  campaign: params.get('utm_campaign')||'',
+  content: params.get('utm_content')||''
+};
+const frame=document.getElementById('miroDxFrame');
+if(frame){
+  frame.addEventListener('load',()=>{
+    try{
+      frame.contentWindow.postMessage({type:'miro_utm',utm},'https://miro-dx-console.vercel.app');
+      setTimeout(()=>frame.contentWindow.postMessage({type:'miro_utm',utm},'https://miro-dx-console.vercel.app'),800);
+    }catch(e){}
+  });
+}
+
+// ── Tracking server-side: DESACTIVADO por ahora ─────────────
+// Para activar: descomentar el siguiente bloque cuando la Edge Function esté desplegada.
+/*
 let consoleSeen=false;
 const consoleEl=document.getElementById('consola');
 if('IntersectionObserver' in window && consoleEl){
@@ -612,26 +602,23 @@ if('IntersectionObserver' in window && consoleEl){
     entries.forEach(en=>{
       if(en.isIntersecting && !consoleSeen){
         consoleSeen=true;
-        // Track en Supabase que el visitante alcanzó la consola
-        try{
-          fetch('https://jipldlklzobiytkvxokf.supabase.co/functions/v1/miro-dx-track',{
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({
-              event:'visit',
-              session_id:'LAND-'+Math.random().toString(36).slice(2,8).toUpperCase(),
-              utm_source:utm.source,utm_medium:utm.medium,
-              utm_campaign:utm.campaign,utm_content:utm.content,
-              referrer:document.referrer.slice(0,200),
-              user_agent:navigator.userAgent.slice(0,200)
-            })
-          });
-        }catch(e){}
+        fetch('https://jipldlklzobiytkvxokf.supabase.co/functions/v1/miro-dx-track',{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({
+            event:'visit',
+            session_id:'LAND-'+Math.random().toString(36).slice(2,8).toUpperCase(),
+            utm_source:utm.source,utm_medium:utm.medium,
+            utm_campaign:utm.campaign,utm_content:utm.content,
+            referrer:document.referrer.slice(0,200),
+            user_agent:navigator.userAgent.slice(0,200)
+          })
+        }).catch(()=>{});
       }
     });
   },{threshold:0.3});
   io.observe(consoleEl);
 }
+*/
 </script>
 </body>
 </html>
