@@ -151,14 +151,22 @@ section{padding:80px 0}
 }
 .hero-canvas{
   position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  aspect-ratio:1;
+  height:130%;
+  width:auto;
+  pointer-events:auto;
   z-index:1;
-  opacity:.85;
-  mask-image:radial-gradient(ellipse at center,#000 0%,#000 50%,transparent 90%);
-  -webkit-mask-image:radial-gradient(ellipse at center,#000 0%,#000 50%,transparent 90%);
+  opacity:.55;
+  mask-image:radial-gradient(ellipse at center,#000 0%,#000 35%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse at center,#000 0%,#000 35%,transparent 75%);
+  mix-blend-mode:screen;
+  cursor:crosshair;
+}
+@media (min-aspect-ratio: 1/1){
+  .hero-canvas{height:auto;width:130%}
 }
 .hero-in{position:relative;z-index:3;width:100%}
 .hero-eyebrow{
@@ -754,151 +762,214 @@ if('IntersectionObserver' in window && consoleEl){
 */
 
 // ════════════════════════════════════════════════════════════════
-// HERO CANVAS — Constellation network (partículas doradas conectadas)
-// Sugiere visualmente "tu caso cruzado con miles de diagnósticos"
+
 // ════════════════════════════════════════════════════════════════
-(function heroConstellation(){
+// HERO CANVAS — Mosaic Reveal (mosaico interactivo)
+// El cursor "destapa" el logo Miró pixel por pixel. Donde el cursor
+// está cerca, las celdas crecen y revelan la imagen. Lejos, solo
+// quedan puntos doradoss del grid. Visualmente sugiere: "explora,
+// descubre lo que está debajo de lo que crees ver".
+// ════════════════════════════════════════════════════════════════
+(function heroMosaic(){
   const canvas=document.getElementById('heroCanvas');
   if(!canvas)return;
 
-  // Respetar prefers-reduced-motion: no animar (fondo queda transparente, grid se ve igual)
+  // Respeto prefers-reduced-motion: oculto canvas, queda grid pattern
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     canvas.style.display='none';
     return;
   }
 
-  const ctx=canvas.getContext('2d', { alpha:true });
-  const dpr=Math.min(window.devicePixelRatio||1, 2); // tope dpr=2 para mobile retina sin ahogar
+  const ctx=canvas.getContext('2d',{alpha:true});
+  const CW=1400; // resolución interna del canvas (cuadrado)
+  const CH=CW;
+  canvas.width=CW; canvas.height=CH;
 
-  // Detección de dispositivo de baja performance (mobile, pocos cores)
-  const isLowEnd=(navigator.hardwareConcurrency||4)<=4 && /Mobi|Android/i.test(navigator.userAgent);
+  // Tamaño visible para mapear coords de mouse
+  let cRect=canvas.getBoundingClientRect();
+  let sx=CW/cRect.width, sy=CH/cRect.height;
 
-  let particles=[];
-  let w=0,h=0;
-  let animId=null;
+  // ── Generar imagen base procedural: logo Miró sobre gradiente bronze ──
+  const baseImg=document.createElement('canvas');
+  baseImg.width=CW; baseImg.height=CH;
+  (function paintBase(){
+    const b=baseImg.getContext('2d');
+    // Gradiente radial: bronze cálido al centro → negro a los bordes
+    const g=b.createRadialGradient(CW/2,CH/2,0,CW/2,CH/2,CW*0.7);
+    g.addColorStop(0,'#3a2810');
+    g.addColorStop(0.35,'#1a1208');
+    g.addColorStop(0.7,'#0a0805');
+    g.addColorStop(1,'#020201');
+    b.fillStyle=g;
+    b.fillRect(0,0,CW,CH);
+
+    // Anillos sutiles concéntricos (sensación de "datos cruzados")
+    b.strokeStyle='rgba(211,164,54,0.07)';
+    b.lineWidth=2;
+    for(let r=120;r<CW;r+=80){
+      b.beginPath();
+      b.arc(CW/2,CH/2,r,0,Math.PI*2);
+      b.stroke();
+    }
+
+    // Logo Miró: M angular en bronce brillante, centrada
+    const scale=6.5;
+    const sw=64*scale; // ancho del path nativo
+    const sh=64*scale;
+    const ox=(CW-sw)/2;
+    const oy=(CH-sh)/2;
+    b.save();
+    b.translate(ox,oy);
+    b.scale(scale,scale);
+    // Glow exterior
+    b.shadowColor='rgba(211,164,54,0.85)';
+    b.shadowBlur=22;
+    b.fillStyle='#D3A436';
+    b.beginPath();
+    b.moveTo(8,52);b.lineTo(8,12);b.lineTo(20,12);b.lineTo(32,32);
+    b.lineTo(44,12);b.lineTo(56,12);b.lineTo(56,52);b.lineTo(48,52);
+    b.lineTo(48,22);b.lineTo(36,40);b.lineTo(28,40);b.lineTo(16,22);
+    b.lineTo(16,52);b.closePath();
+    b.fill();
+    // Pasada extra de glow brillante
+    b.shadowBlur=0;
+    b.fillStyle='#E8C065';
+    b.fill();
+    b.restore();
+  })();
+
+  // ── Engine ──
+  const BOX=88;     // tamaño de cada celda del grid (en coords canvas)
+  const T=Math.PI*2;
+  ctx.fillStyle='#D3A436';
+
+  // Mouse state: target (m.x,m.y) y suavizado (mx,my). Scale s reacciona a velocidad.
+  const m={x:CW/2,y:CH/2,mx:CW/2,my:CW/2,s:1.5,active:false};
+
+  let boxes=[];
+  function buildGrid(){
+    boxes=[];
+    for(let x=0;x<=CW;x+=BOX) for(let y=0;y<=CH;y+=BOX) boxes.push({x,y,d:0,s:0});
+  }
+  buildGrid();
+
+  // Lerp manual (reemplaza GSAP)
+  const clamp=(min,max,v)=>Math.max(min,Math.min(max,v));
+
   let running=true;
+  let lastTime=0;
+  let autoT=0; // tiempo virtual para órbita autónoma (mobile/no-mouse)
 
-  // Config
-  const COUNT=isLowEnd?40:75;        // partículas
-  const MAX_DIST=isLowEnd?110:140;   // distancia para dibujar línea
-  const MAX_DIST_SQ=MAX_DIST*MAX_DIST;
-  const BRONZE='211,164,54';         // RGB de #D3A436
-
-  function resize(){
-    const r=canvas.getBoundingClientRect();
-    w=r.width;h=r.height;
-    canvas.width=Math.round(w*dpr);
-    canvas.height=Math.round(h*dpr);
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-  }
-
-  function spawn(){
-    particles=[];
-    for(let i=0;i<COUNT;i++){
-      particles.push({
-        x: Math.random()*w,
-        y: Math.random()*h,
-        vx:(Math.random()-.5)*.25,   // velocidad lenta
-        vy:(Math.random()-.5)*.25,
-        r: Math.random()*1.4+.6,     // radio 0.6–2.0px
-        glow: Math.random()*.5+.5    // intensidad individual
-      });
-    }
-  }
-
-  function step(){
+  function update(t){
     if(!running)return;
-    ctx.clearRect(0,0,w,h);
+    const dt=Math.min(64,t-lastTime||16); // cap dt para evitar saltos al volver de tab
+    lastTime=t;
 
-    // Movimiento + dibujo de partículas
-    for(let i=0;i<particles.length;i++){
-      const p=particles[i];
-      p.x+=p.vx;
-      p.y+=p.vy;
-      // Wrap suave en bordes (loop continuo)
-      if(p.x<-10)p.x=w+10; else if(p.x>w+10)p.x=-10;
-      if(p.y<-10)p.y=h+10; else if(p.y>h+10)p.y=-10;
+    // Si no hay actividad reciente del puntero → auto-órbita (mobile o desktop idle)
+    if(!m.active){
+      autoT+=dt*0.0004;
+      const r=CW*0.22;
+      m.x=CW/2+Math.cos(autoT)*r;
+      m.y=CH/2+Math.sin(autoT*0.7)*r*0.85;
+    }
 
-      // Dibujar partícula con glow sutil
-      const grad=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
-      grad.addColorStop(0,`rgba(${BRONZE},${.85*p.glow})`);
-      grad.addColorStop(.4,`rgba(${BRONZE},${.25*p.glow})`);
-      grad.addColorStop(1,`rgba(${BRONZE},0)`);
-      ctx.fillStyle=grad;
+    // Suavizado tipo "expo": lerp con factor bajo
+    const k=1-Math.pow(0.001,dt/1000); // ease-out exponencial dependiente de dt
+    m.mx+=(m.x-m.mx)*k;
+    m.my+=(m.y-m.my)*k;
+
+    // Scale del efecto reacciona a la "velocidad" del cursor (distancia entre target y actual)
+    const speedDist=Math.hypot(m.x-m.mx,m.y-m.my);
+    const sTarget=clamp(0.6,2.4,speedDist/CW*3+1.2);
+    m.s+=(sTarget-m.s)*Math.min(1,dt/500);
+
+    // Render
+    ctx.clearRect(0,0,CW,CH);
+    ctx.drawImage(baseImg,0,0,CW,CH,0,0,CW,CH);
+
+    // Mosaico: cada caja se encoge proporcional a su distancia al cursor
+    for(let i=0;i<boxes.length;i++){
+      const c=boxes[i];
+      c.d=Math.hypot(c.x-m.mx,c.y-m.my);
+      c.s=1-clamp(0,1,c.d/CW/m.s);
+      if(c.s<0.001) continue;
+      const boxScaled=BOX*c.s;
+      // dibuja un trozo del baseImg "encogido" sobre la celda → efecto de "abrirse"
+      const sw=BOX-boxScaled;
+      ctx.drawImage(
+        baseImg,
+        c.x+boxScaled/2, c.y+boxScaled/2, sw, sw,
+        c.x, c.y, BOX, BOX
+      );
+    }
+
+    // Puntitos del grid (siempre presentes, intensidad según s)
+    for(let i=0;i<boxes.length;i++){
+      const c=boxes[i];
+      const dotS=Math.max(0.15,c.s);
+      ctx.fillStyle=`rgba(211,164,54,${0.35+c.s*0.55})`;
       ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
-      ctx.fill();
-
-      // Núcleo brillante
-      ctx.fillStyle=`rgba(${BRONZE},${.95*p.glow})`;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.arc(c.x,c.y,BOX*0.08*dotS,0,T);
       ctx.fill();
     }
 
-    // Líneas conectoras (constellation)
-    ctx.lineWidth=.6;
-    for(let i=0;i<particles.length;i++){
-      const a=particles[i];
-      for(let j=i+1;j<particles.length;j++){
-        const b=particles[j];
-        const dx=a.x-b.x, dy=a.y-b.y;
-        const dsq=dx*dx+dy*dy;
-        if(dsq<MAX_DIST_SQ){
-          const alpha=(1-dsq/MAX_DIST_SQ)*.35; // más cerca = más opaco
-          ctx.strokeStyle=`rgba(${BRONZE},${alpha})`;
-          ctx.beginPath();
-          ctx.moveTo(a.x,a.y);
-          ctx.lineTo(b.x,b.y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    animId=requestAnimationFrame(step);
+    rafId=requestAnimationFrame(update);
   }
 
-  function startAnim(){
-    if(animId)cancelAnimationFrame(animId);
+  let rafId=null;
+  function start(){
+    if(rafId)cancelAnimationFrame(rafId);
     running=true;
-    animId=requestAnimationFrame(step);
+    lastTime=performance.now();
+    rafId=requestAnimationFrame(update);
   }
-  function stopAnim(){
+  function stop(){
     running=false;
-    if(animId){cancelAnimationFrame(animId);animId=null}
+    if(rafId){cancelAnimationFrame(rafId);rafId=null}
   }
 
-  // Pausar cuando el hero sale del viewport (ahorra batería en mobile)
+  // Pointer: el usuario interactúa
+  let idleTimer=null;
+  function onPointer(e){
+    cRect=canvas.getBoundingClientRect();
+    sx=CW/cRect.width; sy=CH/cRect.height;
+    const x=(e.clientX-cRect.left)*sx;
+    const y=(e.clientY-cRect.top)*sy;
+    if(x<0||x>CW||y<0||y>CH){m.active=false;return}
+    m.x=x; m.y=y; m.active=true;
+    clearTimeout(idleTimer);
+    idleTimer=setTimeout(()=>{m.active=false;autoT=Math.atan2(m.y-CH/2,m.x-CW/2)},3000);
+  }
+  // Usamos window pointermove con coords del bounding rect para evitar problemas en iframe
+  window.addEventListener('pointermove',onPointer,{passive:true});
+  canvas.addEventListener('pointerleave',()=>{m.active=false},{passive:true});
+
+  // Pausar fuera de viewport / al cambiar de tab
   if('IntersectionObserver' in window){
     const heroEl=document.querySelector('.hero');
     if(heroEl){
       const io=new IntersectionObserver((entries)=>{
-        entries.forEach(en=>{
-          if(en.isIntersecting) startAnim();
-          else stopAnim();
-        });
+        entries.forEach(en=>en.isIntersecting?start():stop());
       },{threshold:0.05});
       io.observe(heroEl);
     }
   }
-
-  // Pausar al cambiar de tab
   document.addEventListener('visibilitychange',()=>{
-    if(document.hidden) stopAnim();
-    else if(document.querySelector('.hero')?.getBoundingClientRect().bottom>0) startAnim();
+    if(document.hidden) stop();
+    else if(document.querySelector('.hero')?.getBoundingClientRect().bottom>0) start();
   });
 
-  // Resize con debounce
+  // Resize → recalcular mapping
   let resizeTimer;
   window.addEventListener('resize',()=>{
     clearTimeout(resizeTimer);
-    resizeTimer=setTimeout(()=>{resize();spawn();},150);
+    resizeTimer=setTimeout(()=>{
+      cRect=canvas.getBoundingClientRect();
+      sx=CW/cRect.width; sy=CH/cRect.height;
+    },150);
   });
 
-  // Init
-  resize();
-  spawn();
-  startAnim();
+  start();
 })();
 </script>
 </body>
