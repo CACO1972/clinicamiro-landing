@@ -411,6 +411,232 @@ section{padding:80px 0}
 .prop-badge b{color:var(--bronze-d);letter-spacing:.06em;font-size:1.05rem}
 
 /* ════════════════════════════════════════════════════════════
+   DEMO IA — sonrisa con overlay de detección animado
+   ════════════════════════════════════════════════════════════ */
+.demo{
+  background:#0A0805;
+  color:#E8E6E0;
+  padding:clamp(80px,12vw,140px) 0;
+  position:relative;
+  overflow:hidden;
+}
+.demo::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 70% 50%, rgba(211,164,54,0.06) 0%, transparent 60%);
+  pointer-events:none;
+}
+.demo .wrap{position:relative;z-index:2}
+
+.demo-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:64px;
+  align-items:center;
+}
+@media (max-width:880px){
+  .demo-grid{grid-template-columns:1fr;gap:36px}
+}
+
+.demo-eyebrow{color:var(--bronze)!important;border-color:var(--bronze)!important}
+.demo-copy h2{color:#E8E6E0;font-size:clamp(2rem,4vw,3.25rem);line-height:1.1;margin-bottom:20px}
+.demo-copy > p{color:#C9C6BE;font-size:1.125rem;line-height:1.7;margin-bottom:32px;max-width:480px}
+.demo-legend{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
+.demo-legend li{display:flex;align-items:flex-start;gap:12px;color:#C9C6BE;font-size:1rem;line-height:1.5}
+.demo-legend b{color:#E8E6E0;font-weight:700}
+.demo-legend .dot{
+  width:10px;height:10px;border-radius:50%;
+  margin-top:6px;flex-shrink:0;
+  box-shadow:0 0 8px currentColor;
+}
+.demo-legend .dot.ok{background:#00E5A0;color:#00E5A0}
+.demo-legend .dot.warn{background:#FFA500;color:#FFA500}
+.demo-legend .dot.ash{background:#9A9790;color:#9A9790}
+
+/* — Viewer scope — */
+.demo-viewer{
+  position:relative;
+  width:100%;
+  aspect-ratio:1/1;
+  max-width:480px;
+  margin-inline:auto;
+}
+.demo-scope{
+  position:absolute;inset:0;
+  background:linear-gradient(165deg,#1C2121 0%,#0A0D0D 100%);
+  border:1px solid rgba(211,164,54,0.22);
+  border-radius:12px;
+  overflow:hidden;
+}
+.demo-corner{
+  position:absolute;
+  width:24px;height:24px;
+  border:2px solid var(--bronze);
+  z-index:5;
+}
+.demo-corner.tl{top:12px;left:12px;border-right:none;border-bottom:none}
+.demo-corner.tr{top:12px;right:12px;border-left:none;border-bottom:none}
+.demo-corner.bl{bottom:12px;left:12px;border-right:none;border-top:none}
+.demo-corner.br{bottom:12px;right:12px;border-left:none;border-top:none}
+
+.demo-grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(211,164,54,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(211,164,54,.05) 1px,transparent 1px);
+  background-size:24px 24px;
+  mask-image:radial-gradient(ellipse at center,#000 0%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse at center,#000 0%,transparent 75%);
+  pointer-events:none;
+}
+
+.demo-svg{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  z-index:2;
+}
+
+/* — Scan line — */
+.demo-scan-line{
+  animation:demoScan 5s ease-in-out infinite;
+  transform-origin:center;
+}
+@keyframes demoScan{
+  0%   { transform:translateY(60px); opacity:0 }
+  10%  { opacity:1 }
+  45%  { transform:translateY(280px); opacity:1 }
+  55%  { transform:translateY(280px); opacity:0 }
+  100% { transform:translateY(60px); opacity:0 }
+}
+
+/* — Markers IA aparecen secuencialmente — */
+.demo-marker{
+  opacity:0;
+  transform-origin:center;
+  transform-box:fill-box;
+}
+.demo-marker circle{transform-origin:center;transform-box:fill-box}
+.demo-marker-1{animation:demoMarker 5s ease-out 1.0s infinite}
+.demo-marker-2{animation:demoMarker 5s ease-out 1.7s infinite}
+.demo-marker-3{animation:demoMarker 5s ease-out 2.4s infinite}
+@keyframes demoMarker{
+  0%, 7%   { opacity:0; transform:scale(0.6) }
+  15%, 75% { opacity:1; transform:scale(1) }
+  85%, 100%{ opacity:0; transform:scale(1.4) }
+}
+
+/* — Tags flotantes — */
+.demo-tag{
+  position:absolute;
+  z-index:4;
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  padding:8px 12px;
+  background:rgba(10,8,5,0.92);
+  border:1px solid rgba(211,164,54,0.35);
+  border-radius:4px;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  font-family:var(--body);
+  font-size:.72rem;
+  letter-spacing:.04em;
+  white-space:nowrap;
+  opacity:0;
+  transform:translateY(4px);
+  box-shadow:0 4px 16px rgba(0,0,0,0.5);
+}
+.demo-tag-dot{
+  width:7px;height:7px;border-radius:50%;
+  margin-top:5px;flex-shrink:0;
+}
+.demo-tag-dot.ok{background:#00E5A0;box-shadow:0 0 8px #00E5A0}
+.demo-tag-dot.warn{background:#FFA500;box-shadow:0 0 8px #FFA500}
+.demo-tag-dot.alert{background:#FF6B35;box-shadow:0 0 8px #FF6B35}
+.demo-tag-label{
+  display:block;
+  font-family:var(--display);
+  font-weight:900;
+  font-size:.62rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#E8E6E0;
+  line-height:1.3;
+}
+.demo-tag-zone{
+  display:block;
+  color:#9A9790;
+  font-size:.7rem;
+  letter-spacing:.02em;
+  margin-top:2px;
+}
+
+/* Posicionamiento de cada tag conectado a su marker */
+.demo-tag-1{top:36%;left:6%}
+.demo-tag-2{top:66%;left:46%}
+.demo-tag-3{top:18%;right:6%;text-align:right}
+
+.demo-tag-1{animation:demoTag 5s ease-out 1.2s infinite}
+.demo-tag-2{animation:demoTag 5s ease-out 1.9s infinite}
+.demo-tag-3{animation:demoTag 5s ease-out 2.6s infinite}
+@keyframes demoTag{
+  0%, 9%   { opacity:0; transform:translateY(8px) }
+  17%, 75% { opacity:1; transform:translateY(0) }
+  85%, 100%{ opacity:0; transform:translateY(-4px) }
+}
+
+/* — HUD inferior — */
+.demo-hud{
+  position:absolute;
+  bottom:18px;left:50%;
+  transform:translateX(-50%);
+  display:flex;align-items:center;gap:8px;
+  padding:6px 14px;
+  background:rgba(0,0,0,0.6);
+  border:1px solid rgba(211,164,54,0.2);
+  border-radius:99px;
+  font-family:'JetBrains Mono','Courier New',monospace;
+  font-size:.62rem;
+  letter-spacing:.12em;
+  color:var(--bronze);
+  text-transform:uppercase;
+  z-index:5;
+}
+.demo-hud-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#00E5A0;
+  box-shadow:0 0 8px #00E5A0;
+  animation:livePulse 1.4s ease-in-out infinite;
+}
+.demo-hud-text{white-space:nowrap}
+
+/* Mobile compactness */
+@media (max-width:880px){
+  .demo-viewer{max-width:380px}
+  .demo-tag{font-size:.65rem;padding:6px 10px}
+  .demo-tag-label{font-size:.55rem}
+  .demo-tag-zone{font-size:.62rem}
+  .demo-hud{font-size:.55rem;padding:5px 10px}
+}
+@media (max-width:480px){
+  .demo-tag-zone{display:none}
+}
+
+/* Respeto a prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce){
+  .demo-scan-line,
+  .demo-marker,
+  .demo-tag,
+  .demo-hud-dot {
+    animation:none!important;
+  }
+  .demo-marker,
+  .demo-tag {
+    opacity:1!important;
+    transform:none!important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
    PIPELINE IA — lo que pasa cuando subes tu foto
    ════════════════════════════════════════════════════════════ */
 .pipeline{
@@ -759,6 +985,137 @@ section{padding:80px 0}
     <div class="prop-badge reveal reveal-delay-3">
       <span class="pulse"></span>
       <span><b>GRATIS</b> · Programa piloto · 30 días</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     DEMO IA — sonrisa con overlay de detección animado
+     ════════════════════════════════════════════════════════════ -->
+<section class="demo" id="demo" aria-labelledby="demoTitle">
+  <div class="wrap">
+    <div class="demo-grid">
+
+      <div class="demo-copy reveal">
+        <span class="eyebrow demo-eyebrow">MIRO.DX en acción</span>
+        <h2 id="demoTitle">Esto es lo que ve la inteligencia artificial.</h2>
+        <p>
+          Cada hallazgo viene con su nivel de confianza y su limitación clínica. Sin afirmaciones diagnósticas. Sin venta encubierta. Solo lectura visual responsable.
+        </p>
+        <ul class="demo-legend">
+          <li><span class="dot ok"></span><b>Confianza alta</b> · hallazgo claramente visible</li>
+          <li><span class="dot warn"></span><b>A evaluar</b> · plausible, requiere examen clínico</li>
+          <li><span class="dot ash"></span><b>Limitación</b> · qué se necesita para confirmar</li>
+        </ul>
+      </div>
+
+      <div class="demo-viewer reveal reveal-delay-1" aria-hidden="true">
+        <div class="demo-scope">
+
+          <!-- Corner brackets tipo viewfinder -->
+          <span class="demo-corner tl"></span>
+          <span class="demo-corner tr"></span>
+          <span class="demo-corner bl"></span>
+          <span class="demo-corner br"></span>
+
+          <!-- Grid técnico de fondo -->
+          <div class="demo-grid-bg"></div>
+
+          <!-- SVG: sonrisa stylizada + markers IA animados -->
+          <svg class="demo-svg" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <!-- Halo radial tenue bajo la sonrisa -->
+            <defs>
+              <radialGradient id="halo" cx="50%" cy="55%" r="55%">
+                <stop offset="0%" stop-color="#D3A436" stop-opacity="0.10"/>
+                <stop offset="60%" stop-color="#D3A436" stop-opacity="0.02"/>
+                <stop offset="100%" stop-color="#D3A436" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="scan" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="rgba(211,164,54,0)"/>
+                <stop offset="40%" stop-color="rgba(211,164,54,0.35)"/>
+                <stop offset="50%" stop-color="rgba(211,164,54,0.85)"/>
+                <stop offset="60%" stop-color="rgba(211,164,54,0.35)"/>
+                <stop offset="100%" stop-color="rgba(211,164,54,0)"/>
+              </linearGradient>
+            </defs>
+
+            <circle cx="180" cy="200" r="150" fill="url(#halo)"/>
+
+            <!-- Marco oval de la "boca abierta" -->
+            <ellipse cx="180" cy="195" rx="120" ry="78" fill="none" stroke="rgba(232,230,224,0.10)" stroke-width="1.2"/>
+
+            <!-- ARCADA SUPERIOR: 5 dientes superiores -->
+            <g class="teeth teeth-top">
+              <!-- Cada diente: rectángulo redondeado con sutil sombra interna -->
+              <path d="M105,165 q-2,0 -2,3 v32 q0,3 3,3 h16 q3,0 3,-3 v-32 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.92)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+              <path d="M138,162 q-2,0 -2,3 v36 q0,3 3,3 h18 q3,0 3,-3 v-36 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.95)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+              <path d="M173,160 q-2,0 -2,3 v38 q0,3 3,3 h14 q3,0 3,-3 v-38 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.96)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+              <path d="M204,162 q-2,0 -2,3 v36 q0,3 3,3 h18 q3,0 3,-3 v-36 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.95)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+              <path d="M239,165 q-2,0 -2,3 v32 q0,3 3,3 h16 q3,0 3,-3 v-32 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.92)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+            </g>
+
+            <!-- ARCADA INFERIOR: 5 dientes inferiores (uno faltante para mostrar el hallazgo) -->
+            <g class="teeth teeth-bot">
+              <path d="M110,222 q-2,0 -2,3 v28 q0,3 3,3 h14 q3,0 3,-3 v-28 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.92)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+              <path d="M141,222 q-2,0 -2,3 v30 q0,3 3,3 h16 q3,0 3,-3 v-30 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.94)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+              <!-- Diente faltante (zona 41 aprox.) — solo encía sombreada -->
+              <path d="M172,222 q-2,0 -2,3 v30 q0,3 3,3 h14 q3,0 3,-3 v-30 q0,-3 -3,-3 z" fill="rgba(28,33,33,0.65)" stroke="rgba(255,107,53,0.4)" stroke-width=".8" stroke-dasharray="2,2"/>
+              <path d="M201,222 q-2,0 -2,3 v30 q0,3 3,3 h16 q3,0 3,-3 v-30 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.94)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+              <path d="M234,222 q-2,0 -2,3 v28 q0,3 3,3 h14 q3,0 3,-3 v-28 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.92)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+            </g>
+
+            <!-- SCAN LINE: barra bronze que se mueve verticalmente -->
+            <rect class="demo-scan-line" x="40" y="0" width="280" height="3" fill="url(#scan)"/>
+
+            <!-- MARKERS IA: círculos animados que aparecen en zonas detectadas -->
+            <!-- Marker 1: caries en molar superior derecho (zona 14) -->
+            <g class="demo-marker demo-marker-1">
+              <circle cx="113" cy="183" r="14" fill="none" stroke="rgba(255,165,0,0.55)" stroke-width="1.2"/>
+              <circle cx="113" cy="183" r="6" fill="rgba(255,165,0,0.9)"/>
+            </g>
+            <!-- Marker 2: ausencia dental inferior central -->
+            <g class="demo-marker demo-marker-2">
+              <circle cx="181" cy="240" r="14" fill="none" stroke="rgba(255,107,53,0.55)" stroke-width="1.2"/>
+              <circle cx="181" cy="240" r="6" fill="rgba(255,107,53,0.9)"/>
+            </g>
+            <!-- Marker 3: gingivitis aparente zona anterior superior -->
+            <g class="demo-marker demo-marker-3">
+              <circle cx="180" cy="158" r="14" fill="none" stroke="rgba(0,229,160,0.55)" stroke-width="1.2"/>
+              <circle cx="180" cy="158" r="6" fill="rgba(0,229,160,0.9)"/>
+            </g>
+          </svg>
+
+          <!-- TAGS flotantes con hallazgos -->
+          <div class="demo-tag demo-tag-1">
+            <span class="demo-tag-dot warn"></span>
+            <div>
+              <span class="demo-tag-label">A EVALUAR · COMPATIBLE CON CARIES</span>
+              <span class="demo-tag-zone">Molar superior derecho</span>
+            </div>
+          </div>
+          <div class="demo-tag demo-tag-2">
+            <span class="demo-tag-dot alert"></span>
+            <div>
+              <span class="demo-tag-label">CONFIANZA ALTA · AUSENCIA DENTAL</span>
+              <span class="demo-tag-zone">Incisivo inferior central</span>
+            </div>
+          </div>
+          <div class="demo-tag demo-tag-3">
+            <span class="demo-tag-dot ok"></span>
+            <div>
+              <span class="demo-tag-label">CONFIANZA ALTA · GINGIVA ÍNTEGRA</span>
+              <span class="demo-tag-zone">Zona anterior superior</span>
+            </div>
+          </div>
+
+          <!-- HUD inferior: status mono -->
+          <div class="demo-hud">
+            <span class="demo-hud-dot"></span>
+            <span class="demo-hud-text">ANALIZANDO · GPT-4o VISION · DETAIL HIGH</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
