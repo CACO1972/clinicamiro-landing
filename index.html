@@ -159,18 +159,46 @@ section{padding:80px 0}
   aspect-ratio:1;
   height:130%;
   width:auto;
-  pointer-events:auto;
+  pointer-events:none;
   z-index:1;
-  opacity:.55;
+  opacity:.18;
   mask-image:radial-gradient(ellipse at center,#000 0%,#000 35%,transparent 75%);
   -webkit-mask-image:radial-gradient(ellipse at center,#000 0%,#000 35%,transparent 75%);
   mix-blend-mode:screen;
-  cursor:crosshair;
 }
 @media (min-aspect-ratio: 1/1){
   .hero-canvas{height:auto;width:130%}
 }
 .hero-in{position:relative;z-index:3;width:100%}
+
+/* Hero split layout: copy left + demo right */
+.hero-split{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(40px,5vw,72px);
+  align-items:center;
+}
+@media (max-width:1024px){
+  .hero-split{grid-template-columns:1fr;gap:48px}
+  .hero{padding:80px 0 60px;min-height:auto}
+}
+.hero-copy{min-width:0}
+.hero-demo{
+  min-width:0;
+  width:100%;
+  max-width:480px;
+  margin-inline:auto;
+  aspect-ratio:1/1;
+  position:relative;
+}
+.hero-demo-scope{
+  position:absolute;inset:0;
+  background:linear-gradient(165deg,#1C2121 0%,#0A0D0D 100%);
+  border:1px solid rgba(211,164,54,0.28);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 28px 60px -20px rgba(0,0,0,.6), 0 0 0 1px rgba(211,164,54,.06);
+}
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:10px;
   font-family:var(--body);font-weight:700;
@@ -185,18 +213,18 @@ section{padding:80px 0}
 .hero-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--bronze);box-shadow:0 0 14px var(--bronze);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-.hero h1{color:#fff;margin-bottom:28px}
+.hero h1{color:#fff;margin-bottom:28px;font-size:clamp(2.4rem,5.5vw,4.6rem);line-height:1.05;letter-spacing:-.02em}
 .hero h1 .l1,
 .hero h1 .l2,
 .hero h1 .l3{display:block}
 .hero h1 .accent{color:var(--bronze)}
 .hero h1 .l3{
-  font-size:.7em;
+  font-size:.62em;
   color:#E8E6E0;
   font-weight:800;
   letter-spacing:-.015em;
-  margin-top:32px;
-  line-height:1.2;
+  margin-top:24px;
+  line-height:1.3;
   max-width:26ch;
 }
 .hero h1 .l3 b{color:#fff;font-weight:900}
@@ -925,44 +953,137 @@ section{padding:80px 0}
      ════════════════════════════════════════════════════════════ -->
 <header class="hero">
   <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
-  <div class="wrap hero-in">
-    <div class="hero-eyebrow fade-up">
-      <span class="dot"></span>
-      <span>MIRO.DX · Gratis por tiempo limitado</span>
+  <div class="wrap hero-in hero-split">
+
+    <div class="hero-copy">
+      <div class="hero-eyebrow fade-up">
+        <span class="dot"></span>
+        <span>MIRO.DX · Gratis por tiempo limitado</span>
+      </div>
+
+      <h1 class="fade-up fade-up-1">
+        <span class="l1">Tres dentistas.</span>
+        <span class="l2">Tres diagnósticos <span class="accent">distintos.</span></span>
+        <span class="l3">Una sola verdad: <b>la tuya, cruzada con datos.</b></span>
+      </h1>
+
+      <p class="hero-sub fade-up fade-up-2">
+        MIRO.DX es la primera segunda opinión odontológica con inteligencia artificial. Sin intereses comerciales. Sin sesgo. Con evidencia.
+      </p>
+
+      <div class="hero-ctas fade-up fade-up-3">
+        <a href="#consola" class="btn btn-primary btn-lg btn-arrow">Probar MIRO.DX · 30 días gratis</a>
+        <a href="#como-funciona" class="btn btn-ghost-dark">Cómo funciona</a>
+      </div>
+      <div class="hero-microcopy fade-up fade-up-3">
+        Análisis IA real con tu sonrisa · Sin tarjeta de crédito · Resultado en 2 minutos
+      </div>
+
+      <div class="hero-meta fade-up fade-up-4">
+        <div class="item"><b id="metaAnalisis">+11.000</b>Implantes documentados</div>
+        <div class="item"><b>30+</b>Años de experiencia clínica</div>
+        <div class="item"><b>2 min</b>Tu análisis completo</div>
+      </div>
+
+      <div class="hero-stack fade-up fade-up-5" aria-label="Stack tecnológico">
+        <span class="hero-stack-label">Powered by</span>
+        <span class="hero-stack-chip">GPT-4o Vision</span>
+        <span class="hero-stack-sep">·</span>
+        <span class="hero-stack-chip">Gemini 2.0</span>
+        <span class="hero-stack-sep">·</span>
+        <span class="hero-stack-chip">30 años experiencia clínica</span>
+      </div>
     </div>
 
-    <h1 class="fade-up fade-up-1">
-      <span class="l1">Tres dentistas.</span>
-      <span class="l2">Tres diagnósticos <span class="accent">distintos.</span></span>
-      <span class="l3">Una sola verdad: <b>la tuya, cruzada con datos.</b></span>
-    </h1>
+    <!-- DEMO IA EN VIVO — visible inmediatamente al cargar -->
+    <div class="hero-demo fade-up fade-up-3" aria-hidden="true">
+      <div class="hero-demo-scope">
+        <span class="demo-corner tl"></span>
+        <span class="demo-corner tr"></span>
+        <span class="demo-corner bl"></span>
+        <span class="demo-corner br"></span>
+        <div class="demo-grid-bg"></div>
 
-    <p class="hero-sub fade-up fade-up-2">
-      MIRO.DX es la primera segunda opinión odontológica con inteligencia artificial. Sin intereses comerciales. Sin sesgo. Con evidencia.
-    </p>
+        <svg class="demo-svg" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <radialGradient id="haloHero" cx="50%" cy="55%" r="55%">
+              <stop offset="0%" stop-color="#D3A436" stop-opacity="0.12"/>
+              <stop offset="60%" stop-color="#D3A436" stop-opacity="0.02"/>
+              <stop offset="100%" stop-color="#D3A436" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="scanHero" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(211,164,54,0)"/>
+              <stop offset="40%" stop-color="rgba(211,164,54,0.4)"/>
+              <stop offset="50%" stop-color="rgba(211,164,54,0.95)"/>
+              <stop offset="60%" stop-color="rgba(211,164,54,0.4)"/>
+              <stop offset="100%" stop-color="rgba(211,164,54,0)"/>
+            </linearGradient>
+          </defs>
 
-    <div class="hero-ctas fade-up fade-up-3">
-      <a href="#consola" class="btn btn-primary btn-lg btn-arrow">Probar MIRO.DX · 30 días gratis</a>
-      <a href="#como-funciona" class="btn btn-ghost-dark">Cómo funciona</a>
-    </div>
-    <div class="hero-microcopy fade-up fade-up-3">
-      Análisis IA real con tu sonrisa · Sin tarjeta de crédito · Resultado en 2 minutos
+          <circle cx="180" cy="200" r="150" fill="url(#haloHero)"/>
+          <ellipse cx="180" cy="195" rx="120" ry="78" fill="none" stroke="rgba(232,230,224,0.10)" stroke-width="1.2"/>
+
+          <g class="teeth teeth-top">
+            <path d="M105,165 q-2,0 -2,3 v32 q0,3 3,3 h16 q3,0 3,-3 v-32 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.92)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+            <path d="M138,162 q-2,0 -2,3 v36 q0,3 3,3 h18 q3,0 3,-3 v-36 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.95)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+            <path d="M173,160 q-2,0 -2,3 v38 q0,3 3,3 h14 q3,0 3,-3 v-38 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.96)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+            <path d="M204,162 q-2,0 -2,3 v36 q0,3 3,3 h18 q3,0 3,-3 v-36 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.95)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+            <path d="M239,165 q-2,0 -2,3 v32 q0,3 3,3 h16 q3,0 3,-3 v-32 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.92)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+          </g>
+
+          <g class="teeth teeth-bot">
+            <path d="M110,222 q-2,0 -2,3 v28 q0,3 3,3 h14 q3,0 3,-3 v-28 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.92)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+            <path d="M141,222 q-2,0 -2,3 v30 q0,3 3,3 h16 q3,0 3,-3 v-30 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.94)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+            <path d="M172,222 q-2,0 -2,3 v30 q0,3 3,3 h14 q3,0 3,-3 v-30 q0,-3 -3,-3 z" fill="rgba(28,33,33,0.65)" stroke="rgba(255,107,53,0.5)" stroke-width=".9" stroke-dasharray="2,2"/>
+            <path d="M201,222 q-2,0 -2,3 v30 q0,3 3,3 h16 q3,0 3,-3 v-30 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.94)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+            <path d="M234,222 q-2,0 -2,3 v28 q0,3 3,3 h14 q3,0 3,-3 v-28 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.92)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
+          </g>
+
+          <rect class="demo-scan-line" x="40" y="0" width="280" height="3" fill="url(#scanHero)"/>
+
+          <g class="demo-marker demo-marker-1">
+            <circle cx="113" cy="183" r="14" fill="none" stroke="rgba(255,165,0,0.55)" stroke-width="1.2"/>
+            <circle cx="113" cy="183" r="6" fill="rgba(255,165,0,0.9)"/>
+          </g>
+          <g class="demo-marker demo-marker-2">
+            <circle cx="181" cy="240" r="14" fill="none" stroke="rgba(255,107,53,0.55)" stroke-width="1.2"/>
+            <circle cx="181" cy="240" r="6" fill="rgba(255,107,53,0.9)"/>
+          </g>
+          <g class="demo-marker demo-marker-3">
+            <circle cx="180" cy="158" r="14" fill="none" stroke="rgba(0,229,160,0.55)" stroke-width="1.2"/>
+            <circle cx="180" cy="158" r="6" fill="rgba(0,229,160,0.9)"/>
+          </g>
+        </svg>
+
+        <div class="demo-tag demo-tag-1">
+          <span class="demo-tag-dot warn"></span>
+          <div>
+            <span class="demo-tag-label">A EVALUAR · COMPATIBLE CON CARIES</span>
+            <span class="demo-tag-zone">Molar superior derecho</span>
+          </div>
+        </div>
+        <div class="demo-tag demo-tag-2">
+          <span class="demo-tag-dot alert"></span>
+          <div>
+            <span class="demo-tag-label">CONFIANZA ALTA · AUSENCIA DENTAL</span>
+            <span class="demo-tag-zone">Incisivo inferior central</span>
+          </div>
+        </div>
+        <div class="demo-tag demo-tag-3">
+          <span class="demo-tag-dot ok"></span>
+          <div>
+            <span class="demo-tag-label">CONFIANZA ALTA · GINGIVA ÍNTEGRA</span>
+            <span class="demo-tag-zone">Zona anterior superior</span>
+          </div>
+        </div>
+
+        <div class="demo-hud">
+          <span class="demo-hud-dot"></span>
+          <span class="demo-hud-text">ANALIZANDO · GPT-4o VISION</span>
+        </div>
+      </div>
     </div>
 
-    <div class="hero-meta fade-up fade-up-4">
-      <div class="item"><b id="metaAnalisis">+11.000</b>Implantes documentados</div>
-      <div class="item"><b>30+</b>Años de experiencia clínica</div>
-      <div class="item"><b>2 min</b>Tu análisis completo</div>
-    </div>
-
-    <div class="hero-stack fade-up fade-up-5" aria-label="Stack tecnológico">
-      <span class="hero-stack-label">Powered by</span>
-      <span class="hero-stack-chip">GPT-4o Vision</span>
-      <span class="hero-stack-sep">·</span>
-      <span class="hero-stack-chip">Gemini 2.0</span>
-      <span class="hero-stack-sep">·</span>
-      <span class="hero-stack-chip">30 años de experiencia clínica</span>
-    </div>
   </div>
 
   <a href="#como-funciona" class="hero-scroll" id="heroScroll">
@@ -989,136 +1110,6 @@ section{padding:80px 0}
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════════════════
-     DEMO IA — sonrisa con overlay de detección animado
-     ════════════════════════════════════════════════════════════ -->
-<section class="demo" id="demo" aria-labelledby="demoTitle">
-  <div class="wrap">
-    <div class="demo-grid">
-
-      <div class="demo-copy reveal">
-        <span class="eyebrow demo-eyebrow">MIRO.DX en acción</span>
-        <h2 id="demoTitle">Esto es lo que ve la inteligencia artificial.</h2>
-        <p>
-          Cada hallazgo viene con su nivel de confianza y su limitación clínica. Sin afirmaciones diagnósticas. Sin venta encubierta. Solo lectura visual responsable.
-        </p>
-        <ul class="demo-legend">
-          <li><span class="dot ok"></span><b>Confianza alta</b> · hallazgo claramente visible</li>
-          <li><span class="dot warn"></span><b>A evaluar</b> · plausible, requiere examen clínico</li>
-          <li><span class="dot ash"></span><b>Limitación</b> · qué se necesita para confirmar</li>
-        </ul>
-      </div>
-
-      <div class="demo-viewer reveal reveal-delay-1" aria-hidden="true">
-        <div class="demo-scope">
-
-          <!-- Corner brackets tipo viewfinder -->
-          <span class="demo-corner tl"></span>
-          <span class="demo-corner tr"></span>
-          <span class="demo-corner bl"></span>
-          <span class="demo-corner br"></span>
-
-          <!-- Grid técnico de fondo -->
-          <div class="demo-grid-bg"></div>
-
-          <!-- SVG: sonrisa stylizada + markers IA animados -->
-          <svg class="demo-svg" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-            <!-- Halo radial tenue bajo la sonrisa -->
-            <defs>
-              <radialGradient id="halo" cx="50%" cy="55%" r="55%">
-                <stop offset="0%" stop-color="#D3A436" stop-opacity="0.10"/>
-                <stop offset="60%" stop-color="#D3A436" stop-opacity="0.02"/>
-                <stop offset="100%" stop-color="#D3A436" stop-opacity="0"/>
-              </radialGradient>
-              <linearGradient id="scan" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="rgba(211,164,54,0)"/>
-                <stop offset="40%" stop-color="rgba(211,164,54,0.35)"/>
-                <stop offset="50%" stop-color="rgba(211,164,54,0.85)"/>
-                <stop offset="60%" stop-color="rgba(211,164,54,0.35)"/>
-                <stop offset="100%" stop-color="rgba(211,164,54,0)"/>
-              </linearGradient>
-            </defs>
-
-            <circle cx="180" cy="200" r="150" fill="url(#halo)"/>
-
-            <!-- Marco oval de la "boca abierta" -->
-            <ellipse cx="180" cy="195" rx="120" ry="78" fill="none" stroke="rgba(232,230,224,0.10)" stroke-width="1.2"/>
-
-            <!-- ARCADA SUPERIOR: 5 dientes superiores -->
-            <g class="teeth teeth-top">
-              <!-- Cada diente: rectángulo redondeado con sutil sombra interna -->
-              <path d="M105,165 q-2,0 -2,3 v32 q0,3 3,3 h16 q3,0 3,-3 v-32 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.92)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
-              <path d="M138,162 q-2,0 -2,3 v36 q0,3 3,3 h18 q3,0 3,-3 v-36 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.95)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
-              <path d="M173,160 q-2,0 -2,3 v38 q0,3 3,3 h14 q3,0 3,-3 v-38 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.96)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
-              <path d="M204,162 q-2,0 -2,3 v36 q0,3 3,3 h18 q3,0 3,-3 v-36 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.95)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
-              <path d="M239,165 q-2,0 -2,3 v32 q0,3 3,3 h16 q3,0 3,-3 v-32 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.92)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
-            </g>
-
-            <!-- ARCADA INFERIOR: 5 dientes inferiores (uno faltante para mostrar el hallazgo) -->
-            <g class="teeth teeth-bot">
-              <path d="M110,222 q-2,0 -2,3 v28 q0,3 3,3 h14 q3,0 3,-3 v-28 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.92)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
-              <path d="M141,222 q-2,0 -2,3 v30 q0,3 3,3 h16 q3,0 3,-3 v-30 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.94)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
-              <!-- Diente faltante (zona 41 aprox.) — solo encía sombreada -->
-              <path d="M172,222 q-2,0 -2,3 v30 q0,3 3,3 h14 q3,0 3,-3 v-30 q0,-3 -3,-3 z" fill="rgba(28,33,33,0.65)" stroke="rgba(255,107,53,0.4)" stroke-width=".8" stroke-dasharray="2,2"/>
-              <path d="M201,222 q-2,0 -2,3 v30 q0,3 3,3 h16 q3,0 3,-3 v-30 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.94)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
-              <path d="M234,222 q-2,0 -2,3 v28 q0,3 3,3 h14 q3,0 3,-3 v-28 q0,-3 -3,-3 z" fill="rgba(232,230,224,0.92)" stroke="rgba(211,164,54,0.25)" stroke-width=".6"/>
-            </g>
-
-            <!-- SCAN LINE: barra bronze que se mueve verticalmente -->
-            <rect class="demo-scan-line" x="40" y="0" width="280" height="3" fill="url(#scan)"/>
-
-            <!-- MARKERS IA: círculos animados que aparecen en zonas detectadas -->
-            <!-- Marker 1: caries en molar superior derecho (zona 14) -->
-            <g class="demo-marker demo-marker-1">
-              <circle cx="113" cy="183" r="14" fill="none" stroke="rgba(255,165,0,0.55)" stroke-width="1.2"/>
-              <circle cx="113" cy="183" r="6" fill="rgba(255,165,0,0.9)"/>
-            </g>
-            <!-- Marker 2: ausencia dental inferior central -->
-            <g class="demo-marker demo-marker-2">
-              <circle cx="181" cy="240" r="14" fill="none" stroke="rgba(255,107,53,0.55)" stroke-width="1.2"/>
-              <circle cx="181" cy="240" r="6" fill="rgba(255,107,53,0.9)"/>
-            </g>
-            <!-- Marker 3: gingivitis aparente zona anterior superior -->
-            <g class="demo-marker demo-marker-3">
-              <circle cx="180" cy="158" r="14" fill="none" stroke="rgba(0,229,160,0.55)" stroke-width="1.2"/>
-              <circle cx="180" cy="158" r="6" fill="rgba(0,229,160,0.9)"/>
-            </g>
-          </svg>
-
-          <!-- TAGS flotantes con hallazgos -->
-          <div class="demo-tag demo-tag-1">
-            <span class="demo-tag-dot warn"></span>
-            <div>
-              <span class="demo-tag-label">A EVALUAR · COMPATIBLE CON CARIES</span>
-              <span class="demo-tag-zone">Molar superior derecho</span>
-            </div>
-          </div>
-          <div class="demo-tag demo-tag-2">
-            <span class="demo-tag-dot alert"></span>
-            <div>
-              <span class="demo-tag-label">CONFIANZA ALTA · AUSENCIA DENTAL</span>
-              <span class="demo-tag-zone">Incisivo inferior central</span>
-            </div>
-          </div>
-          <div class="demo-tag demo-tag-3">
-            <span class="demo-tag-dot ok"></span>
-            <div>
-              <span class="demo-tag-label">CONFIANZA ALTA · GINGIVA ÍNTEGRA</span>
-              <span class="demo-tag-zone">Zona anterior superior</span>
-            </div>
-          </div>
-
-          <!-- HUD inferior: status mono -->
-          <div class="demo-hud">
-            <span class="demo-hud-dot"></span>
-            <span class="demo-hud-text">ANALIZANDO · GPT-4o VISION · DETAIL HIGH</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 <!-- ════════════════════════════════════════════════════════════
      PIPELINE IA — lo que pasa cuando subes tu foto
