@@ -523,7 +523,98 @@ section{padding:80px 0}
   z-index:2;
 }
 
-/* — Scan line — */
+/* — DEMO con FOTO REAL — */
+.demo-photo{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  z-index:2;
+  display:block;
+}
+.demo-photo-overlay{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at center, transparent 45%, rgba(10,8,5,0.5) 90%),
+    linear-gradient(180deg, rgba(10,8,5,0.15) 0%, transparent 30%, transparent 70%, rgba(10,8,5,0.4) 100%);
+  mix-blend-mode:multiply;
+}
+.demo-photo-scan{
+  position:absolute;
+  left:8%;right:8%;
+  height:3px;
+  background:linear-gradient(180deg,
+    rgba(211,164,54,0) 0%,
+    rgba(211,164,54,0.5) 40%,
+    rgba(211,164,54,0.95) 50%,
+    rgba(211,164,54,0.5) 60%,
+    rgba(211,164,54,0) 100%);
+  box-shadow:0 0 18px rgba(211,164,54,0.7);
+  z-index:5;
+  pointer-events:none;
+  top:0;
+  animation:demoPhotoScan 5s ease-in-out infinite;
+}
+@keyframes demoPhotoScan{
+  0%   { top:10%; opacity:0 }
+  10%  { opacity:1 }
+  45%  { top:85%; opacity:1 }
+  55%  { top:85%; opacity:0 }
+  100% { top:10%; opacity:0 }
+}
+
+/* — MARKERS IA sobre la foto (HTML, posicionados con %) — */
+.demo-mk{
+  position:absolute;
+  width:32px;height:32px;
+  transform:translate(-50%,-50%);
+  z-index:6;
+  pointer-events:none;
+  opacity:0;
+}
+.demo-mk-ring{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:1.5px solid currentColor;
+  animation:mkRing 2s ease-out infinite;
+}
+.demo-mk-dot{
+  position:absolute;
+  top:50%;left:50%;
+  width:12px;height:12px;
+  border-radius:50%;
+  background:currentColor;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 14px currentColor, 0 0 0 2px rgba(0,0,0,0.4);
+}
+.demo-mk-1{animation:demoMkAppear 5s ease-out 1.0s infinite; color:#FFA500}
+.demo-mk-2{animation:demoMkAppear 5s ease-out 1.7s infinite; color:#00E5A0}
+.demo-mk-3{animation:demoMkAppear 5s ease-out 2.4s infinite; color:#D3A436}
+.demo-mk-1 .warn,
+.demo-mk-2 .ok,
+.demo-mk-3 .info{color:inherit}
+.warn{color:#FFA500}
+.ok{color:#00E5A0}
+.info{color:#D3A436}
+.demo-mk .demo-mk-ring,
+.demo-mk .demo-mk-dot{color:inherit}
+@keyframes demoMkAppear{
+  0%, 7%   { opacity:0; transform:translate(-50%,-50%) scale(0.6) }
+  15%, 75% { opacity:1; transform:translate(-50%,-50%) scale(1) }
+  85%, 100%{ opacity:0; transform:translate(-50%,-50%) scale(1.4) }
+}
+@keyframes mkRing{
+  0%   { transform:scale(0.6); opacity:0.8 }
+  100% { transform:scale(1.8); opacity:0 }
+}
+
+/* — Scan line del SVG legacy (queda no usada pero mantenida por compatibilidad) — */
 .demo-scan-line{
   animation:demoScan 5s ease-in-out infinite;
   transform-origin:center;
@@ -536,7 +627,7 @@ section{padding:80px 0}
   100% { transform:translateY(60px); opacity:0 }
 }
 
-/* — Markers IA aparecen secuencialmente — */
+/* — Markers IA aparecen secuencialmente (legacy SVG, queda no usado) — */
 .demo-marker{
   opacity:0;
   transform-origin:center;
@@ -580,6 +671,7 @@ section{padding:80px 0}
 .demo-tag-dot.ok{background:#00E5A0;box-shadow:0 0 8px #00E5A0}
 .demo-tag-dot.warn{background:#FFA500;box-shadow:0 0 8px #FFA500}
 .demo-tag-dot.alert{background:#FF6B35;box-shadow:0 0 8px #FF6B35}
+.demo-tag-dot.info{background:#D3A436;box-shadow:0 0 8px #D3A436}
 .demo-tag-label{
   display:block;
   font-family:var(--display);
@@ -1009,170 +1101,49 @@ section{padding:80px 0}
         <span class="demo-corner br"></span>
         <div class="demo-grid-bg"></div>
 
-        <svg class="demo-svg" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <radialGradient id="haloHero" cx="50%" cy="55%" r="55%">
-              <stop offset="0%" stop-color="#D3A436" stop-opacity="0.12"/>
-              <stop offset="60%" stop-color="#D3A436" stop-opacity="0.02"/>
-              <stop offset="100%" stop-color="#D3A436" stop-opacity="0"/>
-            </radialGradient>
-            <linearGradient id="scanHero" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="rgba(211,164,54,0)"/>
-              <stop offset="40%" stop-color="rgba(211,164,54,0.4)"/>
-              <stop offset="50%" stop-color="rgba(211,164,54,0.95)"/>
-              <stop offset="60%" stop-color="rgba(211,164,54,0.4)"/>
-              <stop offset="100%" stop-color="rgba(211,164,54,0)"/>
-            </linearGradient>
-            <!-- Encía: gradiente rosa orgánico -->
-            <linearGradient id="gumTop" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#A14654"/>
-              <stop offset="60%" stop-color="#7E2F3D"/>
-              <stop offset="100%" stop-color="#5A1F2A"/>
-            </linearGradient>
-            <linearGradient id="gumBot" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#5A1F2A"/>
-              <stop offset="40%" stop-color="#7E2F3D"/>
-              <stop offset="100%" stop-color="#A14654"/>
-            </linearGradient>
-            <!-- Esmalte: gradiente sutil para volumen -->
-            <linearGradient id="enamel" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#FBF6E8"/>
-              <stop offset="55%" stop-color="#F0E8D2"/>
-              <stop offset="100%" stop-color="#D8CBA6"/>
-            </linearGradient>
-            <linearGradient id="enamelDark" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#E8DFC4"/>
-              <stop offset="55%" stop-color="#CBBE96"/>
-              <stop offset="100%" stop-color="#9E906A"/>
-            </linearGradient>
-            <!-- Sombra interna boca -->
-            <radialGradient id="mouthInner" cx="50%" cy="55%" r="50%">
-              <stop offset="0%" stop-color="#1A0A10"/>
-              <stop offset="100%" stop-color="#3A1820"/>
-            </radialGradient>
-          </defs>
+        <!-- Imagen clínica real (foto de sonrisa) -->
+        <img class="demo-photo" src="/hero-smile.jpg" alt="" loading="lazy" decoding="async"/>
 
-          <!-- Halo bronze de fondo -->
-          <circle cx="180" cy="200" r="150" fill="url(#haloHero)"/>
+        <!-- Overlay tint sutil sobre la foto para integrarla al ambiente dark del scope -->
+        <div class="demo-photo-overlay"></div>
 
-          <!-- Labios (forma oval externa simulando apertura bucal) -->
-          <path d="M 80,175 Q 95,135 180,128 Q 265,135 280,175 Q 295,210 280,255 Q 265,295 180,302 Q 95,295 80,255 Q 65,210 80,175 Z"
-                fill="#3a1810" stroke="#1f0d08" stroke-width="2"/>
+        <!-- Scan line bronze: cruza la foto verticalmente -->
+        <div class="demo-photo-scan"></div>
 
-          <!-- Sombra interna de la cavidad bucal -->
-          <ellipse cx="180" cy="218" rx="115" ry="78" fill="url(#mouthInner)"/>
+        <!-- MARKERS IA: posicionados sobre zonas reales de ESTA foto específica -->
+        <div class="demo-mk demo-mk-1" style="top:51%; left:60%">
+          <span class="demo-mk-ring warn"></span>
+          <span class="demo-mk-dot warn"></span>
+        </div>
+        <div class="demo-mk demo-mk-2" style="top:18%; left:48%">
+          <span class="demo-mk-ring ok"></span>
+          <span class="demo-mk-dot ok"></span>
+        </div>
+        <div class="demo-mk demo-mk-3" style="top:55%; left:30%">
+          <span class="demo-mk-ring info"></span>
+          <span class="demo-mk-dot info"></span>
+        </div>
 
-          <!-- ENCÍA SUPERIOR (arco superior) -->
-          <path d="M 75,170 Q 100,142 180,138 Q 260,142 285,170 Q 280,178 270,178 Q 240,164 180,162 Q 120,164 90,178 Q 80,178 75,170 Z"
-                fill="url(#gumTop)"/>
-
-          <!-- ARCADA SUPERIOR — dientes anatómicos -->
-          <g class="teeth teeth-top">
-            <!-- Molar derecho (paciente) -->
-            <path d="M 95,178 Q 96,172 102,172 L 116,172 Q 122,172 122,178 L 124,210 Q 122,218 116,219 L 102,219 Q 96,218 95,210 Z"
-                  fill="url(#enamelDark)" stroke="#A89770" stroke-width=".5"/>
-            <!-- Premolar -->
-            <path d="M 124,177 Q 124,171 130,170 L 142,170 Q 149,170 150,177 L 152,212 Q 151,221 144,222 L 130,222 Q 124,221 124,212 Z"
-                  fill="url(#enamel)" stroke="#A89770" stroke-width=".5"/>
-            <!-- Canino -->
-            <path d="M 152,172 Q 152,165 159,164 L 169,163 Q 176,163 177,170 Q 178,200 174,228 Q 170,232 165,232 L 159,231 Q 152,229 152,222 Z"
-                  fill="url(#enamel)" stroke="#A89770" stroke-width=".5"/>
-            <!-- Incisivo lateral -->
-            <path d="M 178,166 Q 178,160 184,160 L 196,160 Q 202,160 202,167 L 203,232 Q 202,240 196,241 L 184,241 Q 178,240 178,232 Z"
-                  fill="url(#enamel)" stroke="#A89770" stroke-width=".5"/>
-            <!-- Incisivo central -->
-            <path d="M 204,164 Q 204,158 210,158 L 224,158 Q 230,158 230,165 L 231,234 Q 230,243 224,244 L 210,244 Q 204,243 204,235 Z"
-                  fill="url(#enamel)" stroke="#A89770" stroke-width=".5"/>
-            <!-- Canino izq -->
-            <path d="M 232,168 Q 232,162 239,161 L 250,162 Q 256,162 256,170 Q 256,200 252,228 Q 247,232 242,232 L 236,231 Q 232,229 232,221 Z"
-                  fill="url(#enamel)" stroke="#A89770" stroke-width=".5"/>
-            <!-- Premolar izq -->
-            <path d="M 258,177 Q 258,171 264,170 L 276,170 Q 282,170 282,177 L 282,212 Q 281,221 274,222 L 264,222 Q 258,221 258,212 Z"
-                  fill="url(#enamel)" stroke="#A89770" stroke-width=".5"/>
-            <!-- Brillos especulares en algunos dientes (volumen 3D) -->
-            <path d="M 159,170 L 162,170 L 161,210 L 158,210 Z" fill="rgba(255,255,255,.35)"/>
-            <path d="M 211,165 L 215,165 L 213,225 L 209,225 Z" fill="rgba(255,255,255,.4)"/>
-            <path d="M 184,168 L 187,168 L 185,225 L 182,225 Z" fill="rgba(255,255,255,.3)"/>
-          </g>
-
-          <!-- ENCÍA INFERIOR -->
-          <path d="M 85,278 Q 105,300 180,304 Q 255,300 275,278 Q 270,272 260,272 Q 230,284 180,286 Q 130,284 100,272 Q 90,272 85,278 Z"
-                fill="url(#gumBot)"/>
-
-          <!-- ARCADA INFERIOR — dientes anatómicos -->
-          <g class="teeth teeth-bot">
-            <!-- Molar -->
-            <path d="M 105,242 Q 105,234 112,234 L 124,234 Q 130,234 130,242 L 130,272 Q 129,279 123,280 L 112,280 Q 105,279 105,272 Z"
-                  fill="url(#enamel)" stroke="#A89770" stroke-width=".5"/>
-            <!-- Premolar -->
-            <path d="M 132,242 Q 132,235 138,235 L 150,235 Q 156,235 156,242 L 156,276 Q 155,283 149,284 L 138,284 Q 132,283 132,276 Z"
-                  fill="url(#enamel)" stroke="#A89770" stroke-width=".5"/>
-            <!-- Canino -->
-            <path d="M 158,242 Q 158,234 164,234 L 174,234 Q 180,234 180,242 L 180,278 Q 179,285 173,286 L 164,286 Q 158,285 158,278 Z"
-                  fill="url(#enamel)" stroke="#A89770" stroke-width=".5"/>
-            <!-- Incisivo central izquierdo (paciente) — el "faltante" detectado -->
-            <path d="M 184,242 L 200,242 L 200,280 L 184,280 Z"
-                  fill="rgba(60,30,40,0.85)" stroke="rgba(255,107,53,0.65)" stroke-width="1.2" stroke-dasharray="3,2"/>
-            <!-- Incisivo central derecho -->
-            <path d="M 202,242 Q 202,234 208,234 L 220,234 Q 226,234 226,242 L 226,280 Q 225,286 220,287 L 208,287 Q 202,286 202,280 Z"
-                  fill="url(#enamel)" stroke="#A89770" stroke-width=".5"/>
-            <!-- Canino -->
-            <path d="M 228,242 Q 228,235 234,235 L 244,235 Q 250,235 250,242 L 250,278 Q 249,284 244,285 L 234,285 Q 228,284 228,278 Z"
-                  fill="url(#enamel)" stroke="#A89770" stroke-width=".5"/>
-            <!-- Premolar -->
-            <path d="M 252,242 Q 252,235 258,235 L 270,235 Q 276,235 276,242 L 276,276 Q 275,283 269,284 L 258,284 Q 252,283 252,276 Z"
-                  fill="url(#enamel)" stroke="#A89770" stroke-width=".5"/>
-            <!-- Brillos -->
-            <path d="M 164,238 L 167,238 L 165,275 L 163,275 Z" fill="rgba(255,255,255,.3)"/>
-            <path d="M 210,238 L 213,238 L 212,278 L 209,278 Z" fill="rgba(255,255,255,.35)"/>
-            <!-- Mancha de caries sugerente en el molar derecho (paciente) — para el marker -->
-            <ellipse cx="118" cy="258" rx="3.5" ry="2.5" fill="rgba(80,50,20,.6)"/>
-            <ellipse cx="118" cy="258" rx="2" ry="1.5" fill="rgba(40,25,10,.8)"/>
-          </g>
-
-          <!-- Lengua: forma oval rojiza en el centro de la boca abierta -->
-          <ellipse cx="180" cy="265" rx="62" ry="22" fill="#A6394D" opacity="0.92"/>
-          <ellipse cx="180" cy="262" rx="55" ry="16" fill="#C04A60" opacity="0.5"/>
-          <!-- Surco lingual central -->
-          <path d="M 180,250 Q 178,265 180,278" stroke="#5A1A26" stroke-width="1" fill="none" opacity=".5"/>
-
-          <!-- SCAN LINE bronze -->
-          <rect class="demo-scan-line" x="55" y="0" width="250" height="3" fill="url(#scanHero)"/>
-
-          <!-- MARKERS IA con animación -->
-          <g class="demo-marker demo-marker-1">
-            <circle cx="118" cy="258" r="16" fill="none" stroke="rgba(255,165,0,0.65)" stroke-width="1.4"/>
-            <circle cx="118" cy="258" r="7" fill="rgba(255,165,0,0.92)"/>
-          </g>
-          <g class="demo-marker demo-marker-2">
-            <circle cx="192" cy="261" r="16" fill="none" stroke="rgba(255,107,53,0.65)" stroke-width="1.4"/>
-            <circle cx="192" cy="261" r="7" fill="rgba(255,107,53,0.92)"/>
-          </g>
-          <g class="demo-marker demo-marker-3">
-            <circle cx="180" cy="155" r="16" fill="none" stroke="rgba(0,229,160,0.65)" stroke-width="1.4"/>
-            <circle cx="180" cy="155" r="7" fill="rgba(0,229,160,0.92)"/>
-          </g>
-        </svg>
-
+        <!-- TAGS flotantes — texto cambia para coincidir con lo que la IA REALMENTE detectaría aquí -->
         <div class="demo-tag demo-tag-1">
           <span class="demo-tag-dot warn"></span>
           <div>
-            <span class="demo-tag-label">A EVALUAR · COMPATIBLE CON CARIES</span>
-            <span class="demo-tag-zone">Molar superior derecho</span>
+            <span class="demo-tag-label">A EVALUAR · POSIBLE CARIES</span>
+            <span class="demo-tag-zone">Incisivo lateral superior</span>
           </div>
         </div>
         <div class="demo-tag demo-tag-2">
-          <span class="demo-tag-dot alert"></span>
+          <span class="demo-tag-dot ok"></span>
           <div>
-            <span class="demo-tag-label">CONFIANZA ALTA · AUSENCIA DENTAL</span>
-            <span class="demo-tag-zone">Incisivo inferior central</span>
+            <span class="demo-tag-label">CONFIANZA ALTA · ENCÍA SANA</span>
+            <span class="demo-tag-zone">Zona vestibular superior</span>
           </div>
         </div>
         <div class="demo-tag demo-tag-3">
-          <span class="demo-tag-dot ok"></span>
+          <span class="demo-tag-dot info"></span>
           <div>
-            <span class="demo-tag-label">CONFIANZA ALTA · GINGIVA ÍNTEGRA</span>
-            <span class="demo-tag-zone">Zona anterior superior</span>
+            <span class="demo-tag-label">A EVALUAR · BRILLOS NORMALES</span>
+            <span class="demo-tag-zone">Esmalte zona anterior</span>
           </div>
         </div>
 
