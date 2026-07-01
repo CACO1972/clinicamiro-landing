@@ -961,6 +961,143 @@ section{padding:80px 0}
 .console-helpers a:hover{color:var(--bronze)}
 
 /* ════════════════════════════════════════════════════════════
+   SIMULADOR — placeholder mientras se desarrolla
+   ════════════════════════════════════════════════════════════ */
+.simulator-placeholder{
+  max-width:780px;
+  margin:32px auto 0;
+}
+.sim-frame{
+  position:relative;
+  background:linear-gradient(165deg,#0A0D0D 0%,#090B0B 100%);
+  border:1px solid rgba(211,164,54,0.22);
+  border-radius:12px;
+  padding:56px 40px;
+  overflow:hidden;
+  box-shadow:0 24px 60px -12px rgba(0,0,0,.5), inset 0 1px 0 rgba(211,164,54,.06);
+}
+.sim-frame::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(211,164,54,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(211,164,54,.04) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse at center,#000 0%,transparent 70%);
+  -webkit-mask-image:radial-gradient(ellipse at center,#000 0%,transparent 70%);
+  pointer-events:none;
+}
+.sim-corner{
+  position:absolute;
+  width:22px;height:22px;
+  border:2px solid var(--bronze);
+  z-index:2;
+}
+.sim-corner.tl{top:14px;left:14px;border-right:none;border-bottom:none}
+.sim-corner.tr{top:14px;right:14px;border-left:none;border-bottom:none}
+.sim-corner.bl{bottom:14px;left:14px;border-right:none;border-top:none}
+.sim-corner.br{bottom:14px;right:14px;border-left:none;border-top:none}
+
+.sim-content{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  max-width:520px;
+  margin:0 auto;
+}
+.sim-icon{
+  display:inline-flex;
+  align-items:center;justify-content:center;
+  width:96px;height:96px;
+  border-radius:50%;
+  background:radial-gradient(circle at center, rgba(211,164,54,.18) 0%, rgba(211,164,54,.04) 60%, transparent 100%);
+  margin-bottom:24px;
+  animation:simIconPulse 3s ease-in-out infinite;
+}
+@keyframes simIconPulse{
+  0%,100%{transform:scale(1);opacity:1}
+  50%{transform:scale(1.06);opacity:.85}
+}
+.sim-status{
+  display:inline-flex;
+  align-items:center;gap:8px;
+  padding:6px 14px;
+  border:1px solid rgba(211,164,54,.35);
+  border-radius:99px;
+  background:rgba(211,164,54,.06);
+  margin-bottom:20px;
+  font-family:var(--body);
+}
+.sim-status-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--bronze);
+  box-shadow:0 0 10px var(--bronze);
+  animation:pulse 2s ease-in-out infinite;
+}
+.sim-status-txt{
+  font-family:var(--body);
+  font-size:.72rem;
+  color:var(--bronze);
+  letter-spacing:.15em;
+  font-weight:700;
+  text-transform:uppercase;
+}
+.sim-title{
+  font-family:var(--display);
+  font-weight:900;
+  text-transform:uppercase;
+  font-size:clamp(1.75rem,3vw,2.5rem);
+  color:#E8E6E0;
+  letter-spacing:-.02em;
+  margin-bottom:16px;
+  line-height:1.1;
+}
+.sim-desc{
+  font-size:1.05rem;
+  color:#C9C6BE;
+  line-height:1.6;
+  margin-bottom:32px;
+}
+.sim-features{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:36px;
+}
+.sim-feat{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 16px;
+  background:rgba(232,230,224,.02);
+  border:1px solid rgba(232,230,224,.08);
+  border-radius:99px;
+}
+.sim-feat-num{
+  font-family:var(--display);
+  font-weight:900;
+  font-size:.7rem;
+  color:var(--bronze);
+  letter-spacing:.1em;
+}
+.sim-feat-txt{
+  font-size:.85rem;
+  color:#C9C6BE;
+  font-weight:500;
+}
+
+@media (max-width:720px){
+  .sim-frame{padding:40px 24px}
+  .sim-icon{width:76px;height:76px}
+  .sim-features{gap:10px}
+  .sim-feat{padding:8px 12px}
+  .sim-feat-txt{font-size:.78rem}
+}
+
+/* Utilidad para color acento bronce en spans dentro de h2 */
+.accent-bronze{color:var(--bronze)}
+
+/* ════════════════════════════════════════════════════════════
    FAQ
    ════════════════════════════════════════════════════════════ */
 .faq-section{padding:100px 0}
@@ -1076,11 +1213,11 @@ section{padding:80px 0}
       </p>
 
       <div class="hero-ctas fade-up fade-up-3">
-        <a href="#consola" class="btn btn-primary btn-lg btn-arrow">Probar MIRO.DX · 30 días gratis</a>
+        <a href="#consola" class="btn btn-primary btn-lg btn-arrow">Agenda tu evaluación</a>
         <a href="#como-funciona" class="btn btn-ghost-dark">Cómo funciona</a>
       </div>
       <div class="hero-microcopy fade-up fade-up-3">
-        Análisis IA real con tu sonrisa · Sin tarjeta de crédito · Resultado en 2 minutos
+        Simulador de sonrisa · Próximamente · Mientras tanto, evaluación presencial disponible
       </div>
 
       <div class="hero-meta fade-up fade-up-4">
@@ -1267,34 +1404,62 @@ section{padding:80px 0}
 <section id="consola" class="console-section">
   <div class="wrap">
     <div class="console-hd reveal">
-      <span class="eyebrow">Tu sesión empieza aquí</span>
-      <h2 style="margin-top:14px">MIRO.DX · Consola clínica</h2>
-      <p>Dale <b>play</b> dentro del panel y sigue las instrucciones de Rodrigo, tu asistente clínico por voz.</p>
+      <span class="eyebrow">Próximo lanzamiento</span>
+      <h2 style="margin-top:14px">Simulador de sonrisa · <span class="accent-bronze">Próximamente</span></h2>
+      <p>Estamos afinando la próxima experiencia MIRO: subes una foto, la IA te muestra cómo se vería <b>tu sonrisa después del tratamiento</b>. Sin filtros. Con base en tu anatomía real.</p>
     </div>
 
-    <div class="console-frame reveal reveal-delay-2">
-      <div class="console-bar">
-        <div class="console-bar-left">
-          <div class="console-dots"><span></span><span></span><span></span></div>
-          <div class="console-title">MIRO.DX</div>
+    <!-- Placeholder del simulador -->
+    <div class="simulator-placeholder reveal reveal-delay-2">
+      <div class="sim-frame">
+        <span class="sim-corner tl"></span>
+        <span class="sim-corner tr"></span>
+        <span class="sim-corner bl"></span>
+        <span class="sim-corner br"></span>
+
+        <div class="sim-content">
+          <div class="sim-icon" aria-hidden="true">
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M36 8 L44 24 L62 26 L48 40 L52 58 L36 50 L20 58 L24 40 L10 26 L28 24 Z"
+                    stroke="#D3A436" stroke-width="1.5" stroke-linejoin="round" fill="none" opacity=".85"/>
+              <circle cx="36" cy="36" r="4" fill="#D3A436"/>
+            </svg>
+          </div>
+          <div class="sim-status">
+            <span class="sim-status-dot"></span>
+            <span class="sim-status-txt">EN DESARROLLO · Q3 2026</span>
+          </div>
+          <h3 class="sim-title">MIRO · Simulador de Sonrisa</h3>
+          <p class="sim-desc">
+            Verás cómo se vería tu sonrisa después del tratamiento antes de decidir. IA visual, no filtros, cero compromiso.
+          </p>
+          <div class="sim-features">
+            <div class="sim-feat">
+              <span class="sim-feat-num">01</span>
+              <span class="sim-feat-txt">Subes una foto frontal</span>
+            </div>
+            <div class="sim-feat">
+              <span class="sim-feat-num">02</span>
+              <span class="sim-feat-txt">La IA proyecta el resultado esperado</span>
+            </div>
+            <div class="sim-feat">
+              <span class="sim-feat-num">03</span>
+              <span class="sim-feat-txt">Comparas antes / después lado a lado</span>
+            </div>
+          </div>
+          <a href="https://wa.me/56974157966?text=Hola%2C%20quiero%20saber%20cu%C3%A1ndo%20estar%C3%A1%20listo%20el%20simulador%20de%20sonrisa%20de%20MIRO"
+             class="btn btn-primary btn-arrow" target="_blank" rel="noopener">
+            Avísame cuando esté listo
+          </a>
         </div>
-        <div class="console-tag">GRATIS · PILOTO 30 DÍAS</div>
       </div>
-      <iframe
-        id="miroDxFrame"
-        class="console-iframe"
-        src="https://miro-dx-console.vercel.app/"
-        title="Consola MIRO.DX — Análisis dental con IA"
-        allow="camera; microphone; autoplay; encrypted-media"
-        loading="lazy"
-        referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </div>
 
     <div class="console-helpers">
-      <span>¿Problemas con la cámara?</span>
-      <a href="https://wa.me/56974157966?text=Hola%2C%20tengo%20un%20problema%20con%20la%20consola%20MIRO.DX" target="_blank">Escríbenos por WhatsApp</a>
+      <span>Mientras tanto, ¿quieres una evaluación clínica presencial?</span>
+      <a href="https://ff.healthatom.io/41knMr" target="_blank" rel="noopener">Agenda directamente</a>
       <span>·</span>
-      <a href="https://ff.healthatom.io/41knMr" target="_blank">O agenda directamente en clínica</a>
+      <a href="https://wa.me/56974157966?text=Hola%2C%20quiero%20una%20evaluaci%C3%B3n" target="_blank" rel="noopener">Consulta por WhatsApp</a>
     </div>
   </div>
 </section>
@@ -1459,6 +1624,9 @@ const utm={
   campaign: params.get('utm_campaign')||'',
   content: params.get('utm_content')||''
 };
+// NOTA: el iframe de la consola MIRO.DX fue removido temporalmente del landing.
+// Cuando se reactive o se reemplace por el widget del simulador, este bloque
+// debe re-habilitarse apuntando al nuevo elemento correspondiente.
 const frame=document.getElementById('miroDxFrame');
 if(frame){
   frame.addEventListener('load',()=>{
